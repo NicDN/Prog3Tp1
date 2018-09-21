@@ -13,6 +13,8 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ImageIcon;
@@ -57,12 +59,19 @@ public class Fenetre extends JFrame implements Observer {
         déclarerComposantes();
 
         setTitle("Hijara");
-        setSize(500, 725);
+        setSize(500, 850);
         creer();
 
         creerEventsMenu();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setVisible(true);
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                confirmerQuitter();
+            }
+        });
 
     }
 
@@ -77,6 +86,26 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal.add(lblPointsBas, BorderLayout.SOUTH);
 
         this.add(pnlPrincipal, BorderLayout.SOUTH);
+    }
+
+    private void déclarerComposantes() {
+        //Je dois creer les composantes en mémoire dans cette méthode.
+        pnlPrincipal = new JPanel(new BorderLayout());
+
+        pnlJeu = new JPanel(new GridLayout(4, 4));
+        pnlJeu.setPreferredSize(new Dimension(500, 500));
+        lblPointsHaut = new JLabel("Yellow 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
+        lblPointsBas = new JLabel("Blue 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
+        lblTitre = new JLabel(new ImageIcon("hijara1.jpg"));
+
+        mnuBar = new JMenuBar();
+        mnuFichier = new JMenu("Fichier");
+        mnuAide = new JMenu("Aide");
+        mnuNouvellePartie = new JMenuItem("Nouvelle partie");
+        mnuOptions = new JMenuItem("Options");
+        mnuQuitter = new JMenuItem("Quitter");
+        mnuAPropos = new JMenuItem("À propos");
+
     }
 
     public void creerMenu() {
@@ -119,7 +148,7 @@ public class Fenetre extends JFrame implements Observer {
         mnuQuitter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                confirmerQuitter();
             }
         });
 
@@ -141,33 +170,22 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal.add(pnlJeu, BorderLayout.CENTER);
     }
 
-    private void resetPartie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public void update(Observable o, Object arg) {
 
     }
 
-    private void déclarerComposantes() {
-        //Je dois creer les composantes en mémoire dans cette méthode.
-        pnlPrincipal = new JPanel(new BorderLayout());
-
-        pnlJeu = new JPanel(new GridLayout(4,4));
-        pnlJeu.setPreferredSize(new Dimension(400, 500));
-        lblPointsHaut = new JLabel("Yellow 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
-        lblPointsBas = new JLabel("Blue 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
-        lblTitre = new JLabel(new ImageIcon("hijara.jpg"));
-
-        mnuBar = new JMenuBar();
-        mnuFichier = new JMenu("Fichier");
-        mnuAide = new JMenu("Aide");
-        mnuNouvellePartie = new JMenuItem("Nouvelle partie");
-        mnuOptions = new JMenuItem("Options");
-        mnuQuitter = new JMenuItem("Quitter");
-        mnuAPropos = new JMenuItem("À propos");
-
+    private void resetPartie() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public void confirmerQuitter(){
+        int confirm = JOptionPane.showOptionDialog(null, "Voulez vous fermer l’application?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
+                if (confirm == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
+    }
 }

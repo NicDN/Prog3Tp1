@@ -15,17 +15,31 @@ public class Modele extends Observable {
 
     public Modele() {
     }
-    
-    public void majValeurs(){
-        
-        
-        
-        
+
+    public void majValeurs() {
+
         majObsever();
     }
 
     private void majObsever() {
         setChanged();
         notifyObservers();
+    }
+
+    public void démarrer() {
+
+        for (int i = 0; i < 32; i++) {
+
+            for (int j = 0; j < 2; j++) {
+                if (j == 0) {
+
+                } else if (j == 1) {
+
+                }
+            }
+        }
+        
+       
+        
     }
 }

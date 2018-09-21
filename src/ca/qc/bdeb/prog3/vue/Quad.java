@@ -6,6 +6,7 @@
 package ca.qc.bdeb.prog3.vue;
 
 import ca.qc.bdeb.prog3.modele.Modele;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Observable;
@@ -21,6 +22,8 @@ import javax.swing.JPanel;
 public class Quad extends JPanel implements Observer {
 
     Modele modele;
+
+    private JButton tabBouton[][] = new JButton[2][2];
     private JButton btn1 = new JButton(" 1 ");
     private JButton btn2 = new JButton(" 2 ");
     private JButton btn3 = new JButton(" 3 ");
@@ -39,15 +42,22 @@ public class Quad extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
     private void creer() {
+        
+        tabBouton[0][0]=btn2;
+        tabBouton[1][0]=btn3;
+        tabBouton[0][1]=btn1;
+        tabBouton[1][1]=btn4;
+        
+
         this.add(btn2);
         this.add(btn3);
         this.add(btn1);
         this.add(btn4);
-        
+
         btn1.setPreferredSize(new Dimension(15, 15));
         btn2.setPreferredSize(new Dimension(15, 15));
         btn3.setPreferredSize(new Dimension(15, 15));
@@ -55,7 +65,8 @@ public class Quad extends JPanel implements Observer {
 
     }
 
-//    private void creerEvents() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    private void creerEvents() {
+        
+        
+    }
 }
