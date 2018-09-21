@@ -5,11 +5,14 @@
  */
 package ca.qc.bdeb.prog3.vue;
 
+import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +26,7 @@ import javax.swing.JPanel;
  *
  * @author Nicolas
  */
-public class Fenetre extends JFrame {
+public class Fenetre extends JFrame implements Observer {
 
     private JPanel pnlPrincipal = new JPanel(new GridLayout(4, 0));
     private JPanel pnlJeu = new JPanel();
@@ -41,7 +44,13 @@ public class Fenetre extends JFrame {
     private JMenuItem mnuQuitter = new JMenuItem("Quitter");
     private JMenuItem mnuAPropos = new JMenuItem("À propos");
 
-    public Fenetre() throws HeadlessException {
+    Modele modele;
+    
+    public Fenetre(Modele modele) throws HeadlessException {
+        this.modele=modele;
+        
+        déclarerComposantes();
+        
         setTitle("Hijara");
         setSize(400, 650);
         creer();
@@ -122,6 +131,15 @@ public class Fenetre extends JFrame {
 
     private void resetPartie() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        
+    }
+
+    private void déclarerComposantes() {
+        //Je dois creer les composantes en mémoire dans cette méthode.
     }
 
 }

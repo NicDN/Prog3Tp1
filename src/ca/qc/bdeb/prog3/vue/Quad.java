@@ -5,10 +5,16 @@
  */
 package ca.qc.bdeb.prog3.vue;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author Nicolas
  */
-public class Quad {
+public class Quad extends JPanel {
+
+    public Quad() {
+        
+    }
     
 }

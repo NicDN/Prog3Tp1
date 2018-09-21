@@ -5,10 +5,12 @@
  */
 package ca.qc.bdeb.prog3.modele;
 
+import java.util.Observable;
+
 /**
  *
  * @author Nicolas
  */
-public class Modele {
+public class Modele extends Observable {
     
 }
