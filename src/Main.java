@@ -1,4 +1,5 @@
 
+import ca.qc.bdeb.prog3.modele.Modele;
 import ca.qc.bdeb.prog3.vue.Fenetre;
 
 /*
@@ -18,8 +19,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Fenetre fenetre=new Fenetre();
-        System.out.println("bec");
+        
+        Modele modele=new Modele();
+       Fenetre fenetre=new Fenetre(modele);
+    
     }
     
 }

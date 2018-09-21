@@ -12,5 +12,20 @@ import java.util.Observable;
  * @author Nicolas
  */
 public class Modele extends Observable {
+
+    public Modele() {
+    }
     
+    public void majValeurs(){
+        
+        
+        
+        
+        majObsever();
+    }
+
+    private void majObsever() {
+        setChanged();
+        notifyObservers();
+    }
 }
