@@ -23,4 +23,13 @@ public class Joueur {
         this.couleur = couleur;
     }
 
+  
+//Quoi faire?
+    public void setCouleur(javafx.scene.paint.Color couleur) {
+        this.couleur=couleur;
+    }
+    
+   
+    
+
 }

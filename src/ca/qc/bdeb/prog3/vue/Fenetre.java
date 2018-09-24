@@ -18,6 +18,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
+import javafx.scene.paint.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -62,7 +63,7 @@ public class Fenetre extends JFrame implements Observer {
     private Quad quad;
 
     private Timer timer = new Timer(1000, new ActionListener() {
-
+//METTRE 0 !!
         @Override
         public void actionPerformed(ActionEvent e) {
             modele.chronometrer();
@@ -173,17 +174,18 @@ public class Fenetre extends JFrame implements Observer {
                 creerFenetreCouleur();
 
                 String valeurSelectionee = (String) cboBoite.getSelectedItem();
-                
-                if(valeurSelectionee.equalsIgnoreCase("Vert")){
-                    
-                }else if(valeurSelectionee.equalsIgnoreCase("Rouge")){
-                    
-                }else if(valeurSelectionee.equalsIgnoreCase("Bleu")){
-                    
-                }else if(valeurSelectionee.equalsIgnoreCase("Jaune")){
-                    
+                Color couleur = null;
+                if (valeurSelectionee.equalsIgnoreCase("Vert")) {
+                    couleur = Color.GREEN;
+
+                } else if (valeurSelectionee.equalsIgnoreCase("Rouge")) {
+                    couleur = Color.RED;
+                } else if (valeurSelectionee.equalsIgnoreCase("Bleu")) {
+                    couleur = Color.BLUE;
+                } else if (valeurSelectionee.equalsIgnoreCase("Jaune")) {
+                    couleur = Color.YELLOW;
                 }
-                
+                modele.changerCouleur(couleur);
             }
 
             private void creerFenetreCouleur() {

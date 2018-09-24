@@ -9,6 +9,8 @@ import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
@@ -29,6 +31,7 @@ public class Quad extends JPanel implements Observer {
     private JButton btn3 = new JButton(" 3 ");
     private JButton btn4 = new JButton(" 4 ");
 
+    private JButton btn;
     public Quad(Modele modele) {
         this.modele = modele;
         modele.addObserver(this);
@@ -47,10 +50,10 @@ public class Quad extends JPanel implements Observer {
 
     private void creer() {
         
-        tabBouton[0][0]=btn2;
-        tabBouton[1][0]=btn3;
-        tabBouton[0][1]=btn1;
-        tabBouton[1][1]=btn4;
+//        tabBouton[0][0]=btn2;
+//        tabBouton[1][0]=btn3;
+//        tabBouton[0][1]=btn1;
+//        tabBouton[1][1]=btn4;
         
 
         this.add(btn2);
@@ -66,7 +69,13 @@ public class Quad extends JPanel implements Observer {
     }
 
     private void creerEvents() {
-        
+        btn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+        });
         
     }
 }
