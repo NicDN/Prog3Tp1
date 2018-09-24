@@ -19,7 +19,9 @@ import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -33,6 +35,10 @@ import javax.swing.Timer;
  * @author Nicolas
  */
 public class Fenetre extends JFrame implements Observer {
+
+    private JComboBox cboBoite;
+
+    private JFrame fenetre2;
 
     private JPanel pnlPrincipal1;
     private JPanel pnlJeu;
@@ -55,10 +61,7 @@ public class Fenetre extends JFrame implements Observer {
     Modele modele;
     private Quad quad;
 
-    private int seconde = 0;
-    private int minute = 0;
-
-    private Timer timer = new Timer(200, new ActionListener() {
+    private Timer timer = new Timer(1000, new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -70,6 +73,7 @@ public class Fenetre extends JFrame implements Observer {
     public Fenetre(Modele modele) throws HeadlessException {
 
         this.modele = modele;
+        modele.addObserver(this);
 
         déclarerComposantes();
 
@@ -91,6 +95,7 @@ public class Fenetre extends JFrame implements Observer {
     }
 
     public void creer() {
+        démarrerTimer();
         creerMenu();
 
         pnlPrincipal2.add(lblTitre, BorderLayout.SOUTH);
@@ -119,7 +124,7 @@ public class Fenetre extends JFrame implements Observer {
         lblTitre = new JLabel("           Hijara");
         lblTitre.setFont(new Font("Elephant", Font.BOLD, 42));
         lblTitre.setPreferredSize(new Dimension(500, 50));
-        lblTimer = new JLabel("");
+        lblTimer = new JLabel("cghfg");
 
         mnuBar = new JMenuBar();
         mnuFichier = new JMenu("Fichier");
@@ -165,6 +170,28 @@ public class Fenetre extends JFrame implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                creerFenetreCouleur();
+                
+                
+
+            }
+
+            private void creerFenetreCouleur() {
+                fenetre2 = new JFrame();
+                fenetre2.setLayout(new GridLayout(2, 0));
+                fenetre2.setTitle("Options");
+                fenetre2.setSize(500, 850);
+
+                JLabel lblCouleur = new JLabel("Sélectionnez une couleur:");
+                String choixCouleur[] = {"Bleu", "Rouge", "Vert", "Jaune"};
+                cboBoite = new JComboBox(choixCouleur);
+                cboBoite.setPreferredSize(new Dimension(50, 20));
+
+                fenetre2.add(lblCouleur);
+                fenetre2.add(cboBoite);
+
+                fenetre2.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                fenetre2.setVisible(true);
             }
         });
 

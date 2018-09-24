@@ -14,8 +14,10 @@ import javax.swing.Timer;
  * @author Nicolas
  */
 public class Modele extends Observable {
+    
+    private Joueur joueurActf;
 
-    private int minute, seconde;
+    private int minute=0, seconde=0;
 
     public Modele() {
     }
