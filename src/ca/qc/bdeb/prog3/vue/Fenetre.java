@@ -171,16 +171,26 @@ public class Fenetre extends JFrame implements Observer {
             public void actionPerformed(ActionEvent e) {
 
                 creerFenetreCouleur();
-                
-                
 
+                String valeurSelectionee = (String) cboBoite.getSelectedItem();
+                
+                if(valeurSelectionee.equalsIgnoreCase("Vert")){
+                    
+                }else if(valeurSelectionee.equalsIgnoreCase("Rouge")){
+                    
+                }else if(valeurSelectionee.equalsIgnoreCase("Bleu")){
+                    
+                }else if(valeurSelectionee.equalsIgnoreCase("Jaune")){
+                    
+                }
+                
             }
 
             private void creerFenetreCouleur() {
                 fenetre2 = new JFrame();
                 fenetre2.setLayout(new GridLayout(2, 0));
                 fenetre2.setTitle("Options");
-                fenetre2.setSize(500, 850);
+                fenetre2.setSize(300, 150);
 
                 JLabel lblCouleur = new JLabel("Sélectionnez une couleur:");
                 String choixCouleur[] = {"Bleu", "Rouge", "Vert", "Jaune"};
