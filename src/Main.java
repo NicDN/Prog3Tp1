@@ -23,6 +23,8 @@ public class Main {
         Modele modele=new Modele();
        Fenetre fenetre=new Fenetre(modele);
        modele.démarrer();
+       fenetre.démarrerTimer();
+       
     
     }
     

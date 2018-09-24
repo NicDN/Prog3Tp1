@@ -5,7 +5,9 @@
  */
 package ca.qc.bdeb.prog3.modele;
 
+import ca.qc.bdeb.prog3.vue.Fenetre;
 import java.util.Observable;
+import javax.swing.Timer;
 
 /**
  *
@@ -13,12 +15,9 @@ import java.util.Observable;
  */
 public class Modele extends Observable {
 
+    private int minute, seconde;
+
     public Modele() {
-    }
-
-    public void majValeurs() {
-
-        majObsever();
     }
 
     private void majObsever() {
@@ -38,8 +37,29 @@ public class Modele extends Observable {
                 }
             }
         }
-        
-       
-        
+
     }
+
+    public void resetPartie() {
+
+    }
+
+
+    public void chronometrer() {
+        seconde++;
+        if (seconde > 59) {
+            minute++;
+            seconde = 0;
+        }
+        majObsever();
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public int getSeconde() {
+        return seconde;
+    }
+
 }

@@ -8,6 +8,7 @@ package ca.qc.bdeb.prog3.vue;
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
@@ -25,6 +26,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
@@ -32,13 +34,14 @@ import javax.swing.JPanel;
  */
 public class Fenetre extends JFrame implements Observer {
 
-    private JPanel pnlPrincipal;
+    private JPanel pnlPrincipal1;
     private JPanel pnlJeu;
-    private JPanel pnlSecondaire;
+    private JPanel pnlPrincipal2;
 
     private JLabel lblPointsHaut;
     private JLabel lblPointsBas;
     private JLabel lblTitre;
+    private JLabel lblTimer;
 
     private JMenuBar mnuBar;
     private JMenu mnuFichier;
@@ -51,6 +54,18 @@ public class Fenetre extends JFrame implements Observer {
 
     Modele modele;
     private Quad quad;
+
+    private int seconde = 0;
+    private int minute = 0;
+
+    private Timer timer = new Timer(200, new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            modele.chronometrer();
+
+        }
+    });
 
     public Fenetre(Modele modele) throws HeadlessException {
 
@@ -78,25 +93,33 @@ public class Fenetre extends JFrame implements Observer {
     public void creer() {
         creerMenu();
 
-        this.add(lblTitre, BorderLayout.CENTER);
-        pnlPrincipal.add(lblPointsHaut, BorderLayout.NORTH);
+        pnlPrincipal2.add(lblTitre, BorderLayout.SOUTH);
+        pnlPrincipal2.add(lblTimer, BorderLayout.EAST);
+        this.add(pnlPrincipal2, BorderLayout.NORTH);
+
+        pnlPrincipal1.add(lblPointsHaut, BorderLayout.NORTH);
 
         creerTableJeu();
 
-        pnlPrincipal.add(lblPointsBas, BorderLayout.SOUTH);
+        pnlPrincipal1.add(lblPointsBas, BorderLayout.SOUTH);
 
-        this.add(pnlPrincipal, BorderLayout.SOUTH);
+        this.add(pnlPrincipal1, BorderLayout.CENTER);
     }
 
     private void déclarerComposantes() {
-        //Je dois creer les composantes en mémoire dans cette méthode.
-        pnlPrincipal = new JPanel(new BorderLayout());
+
+        pnlPrincipal1 = new JPanel(new BorderLayout());
+        pnlPrincipal2 = new JPanel(new BorderLayout());
 
         pnlJeu = new JPanel(new GridLayout(4, 4));
         pnlJeu.setPreferredSize(new Dimension(500, 500));
+
         lblPointsHaut = new JLabel("Yellow 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
         lblPointsBas = new JLabel("Blue 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
-        lblTitre = new JLabel(new ImageIcon("hijara1.jpg"));
+        lblTitre = new JLabel("           Hijara");
+        lblTitre.setFont(new Font("Elephant", Font.BOLD, 42));
+        lblTitre.setPreferredSize(new Dimension(500, 50));
+        lblTimer = new JLabel("");
 
         mnuBar = new JMenuBar();
         mnuFichier = new JMenu("Fichier");
@@ -120,8 +143,8 @@ public class Fenetre extends JFrame implements Observer {
 
         mnuBar.add(mnuAide);
 
-        this.add(mnuBar, BorderLayout.NORTH);
-
+//        this.add(mnuBar, BorderLayout.NORTH);
+        pnlPrincipal2.add(mnuBar, BorderLayout.NORTH);
     }
 
     public void creerEvents() {
@@ -133,7 +156,7 @@ public class Fenetre extends JFrame implements Observer {
         mnuNouvellePartie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                resetPartie();
+                modele.resetPartie();
             }
 
         });
@@ -167,25 +190,32 @@ public class Fenetre extends JFrame implements Observer {
             quad = new Quad(modele);
             pnlJeu.add(quad);
         }
-        pnlPrincipal.add(pnlJeu, BorderLayout.CENTER);
+        pnlPrincipal1.add(pnlJeu, BorderLayout.CENTER);
     }
-
-    
 
     @Override
     public void update(Observable o, Object arg) {
-
+        lblTimer.setText(modele.getMinute() + ":" + modele.getSeconde());
     }
 
     private void resetPartie() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void confirmerQuitter(){
+
+    public void confirmerQuitter() {
         int confirm = JOptionPane.showOptionDialog(null, "Voulez vous fermer l’application?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 
-                if (confirm == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                }
+        if (confirm == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
+
+    public void démarrerTimer() {
+        timer.start();
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
 }
