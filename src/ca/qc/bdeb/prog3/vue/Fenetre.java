@@ -7,9 +7,9 @@ package ca.qc.bdeb.prog3.vue;
 
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -18,8 +18,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
 import java.util.Observer;
-import javafx.scene.paint.Color;
-import javax.swing.ImageIcon;
+
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -36,7 +35,10 @@ import javax.swing.Timer;
  * @author Nicolas
  */
 public class Fenetre extends JFrame implements Observer {
-
+//Faire tableau 3 dimensions
+//lA POSITION Du bouton dans le quad n'est pas important    
+    private int tabBoutonVue[][][] = new int[4][4][4];
+     
     private JComboBox cboBoite;
 
     private JFrame fenetre2;
@@ -175,6 +177,7 @@ public class Fenetre extends JFrame implements Observer {
 
                 String valeurSelectionee = (String) cboBoite.getSelectedItem();
                 Color couleur = null;
+                
                 if (valeurSelectionee.equalsIgnoreCase("Vert")) {
                     couleur = Color.GREEN;
 
@@ -225,9 +228,14 @@ public class Fenetre extends JFrame implements Observer {
 
     private void creerTableJeu() {
 
-        for (int i = 0; i < 16; i++) {
-            quad = new Quad(modele);
-            pnlJeu.add(quad);
+        for (int i = 0; i < 4; i++) {
+            
+            for(int j=0;j<4;j++){
+                
+                quad = new Quad(modele,i,j);
+                pnlJeu.add(quad);
+            }
+     
         }
         pnlPrincipal1.add(pnlJeu, BorderLayout.CENTER);
     }

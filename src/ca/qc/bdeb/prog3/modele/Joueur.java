@@ -24,9 +24,13 @@ public class Joueur {
     }
 
   
-//Quoi faire?
-    public void setCouleur(javafx.scene.paint.Color couleur) {
+
+    public void setCouleur(Color couleur) {
         this.couleur=couleur;
+    }
+
+    public Color getCouleur() {
+        return couleur;
     }
     
    

@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.BorderFactory;
@@ -23,21 +24,20 @@ import javax.swing.JPanel;
  */
 public class Quad extends JPanel implements Observer {
 
+    private int positionX, positionY;
+
     Modele modele;
 
-    private JButton tabBouton[][] = new JButton[2][2];
-    private JButton btn1 = new JButton(" 1 ");
-    private JButton btn2 = new JButton(" 2 ");
-    private JButton btn3 = new JButton(" 3 ");
-    private JButton btn4 = new JButton(" 4 ");
+    private ArrayList<Bouton> listeBouton = new ArrayList();
 
-    private JButton btn;
-    public Quad(Modele modele) {
+    public Quad(Modele modele, int positionX, int positionY) {
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.modele = modele;
         modele.addObserver(this);
 
-        creer();
-//        creerEvents();
+        creerBoutons();
+
         this.setPreferredSize(new Dimension(30, 30));
         this.setLayout(new GridLayout(2, 2));
         this.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
@@ -48,34 +48,25 @@ public class Quad extends JPanel implements Observer {
 
     }
 
-    private void creer() {
-        
-//        tabBouton[0][0]=btn2;
-//        tabBouton[1][0]=btn3;
-//        tabBouton[0][1]=btn1;
-//        tabBouton[1][1]=btn4;
-        
+    public void creerBoutons() {
 
-        this.add(btn2);
-        this.add(btn3);
-        this.add(btn1);
-        this.add(btn4);
+        for (int i = 0; i < 4; i++) {
+           
+                Bouton btn = new Bouton(""+i,i);
+                btn.setPreferredSize(new Dimension(15, 15));
+                listeBouton.add(btn);
+                this.add(btn);
 
-        btn1.setPreferredSize(new Dimension(15, 15));
-        btn2.setPreferredSize(new Dimension(15, 15));
-        btn3.setPreferredSize(new Dimension(15, 15));
-        btn4.setPreferredSize(new Dimension(15, 15));
+                btn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Bouton btnClique = (Bouton) e.getSource();
+                        modele.placerMarqueur(positionX, positionY,btnClique.getPositionDansQuad());
+                    }
+                });
+            
+        }
 
     }
 
-    private void creerEvents() {
-        btn.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               
-            }
-        });
-        
-    }
 }
