@@ -16,15 +16,15 @@ import javax.swing.JButton;
  * @author Nicolas
  */
 public class Modele extends Observable {
-//Faire tableau 3 dimensions
+
     private int tabBoutonModele[][][] = new int[4][4][4];
 
     private Joueur joueurActif;
 
     private int minute = 0, seconde = 0;
 
-    private Joueur joueurA = new Joueur(0, "JoueurA", Color.BLUE);
-    private Joueur joueurB = new Joueur(0, "JoueurB", Color.RED);
+    private Joueur joueur1 = new Joueur(0, 1, Color.BLUE);
+    private Joueur joueur2 = new Joueur(0, 2, Color.RED);
 
     public Modele() {
 
@@ -76,9 +76,9 @@ public class Modele extends Observable {
         majObserver();
     }
 
-//    private void changerCouleurPlan(javafx.scene.paint.Color couleur) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    private void changerCouleurPlan(Color couleur) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     public int getMinute() {
         return minute;
     }
@@ -87,10 +87,24 @@ public class Modele extends Observable {
         return seconde;
     }
 
-    public void placerMarqueur(int positionQuadX, int positionQuadY,int positionDansQuad) {
+    public void placerMarqueur(int positionX, int positionY, int positionDansQuad) {
+        joueurActif = joueur2;
         
+        tabBoutonModele[positionX][positionY][positionDansQuad] = joueurActif.getNumeroJoueur();
 
         majObserver();
+    }
+
+    public int[][][] getTabBoutonModele() {
+        return tabBoutonModele;
+    }
+
+    public Joueur getJoueur1() {
+        return joueur1;
+    }
+
+    public Joueur getJoueur2() {
+        return joueur2;
     }
 
 }

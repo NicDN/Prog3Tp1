@@ -5,24 +5,32 @@
  */
 package ca.qc.bdeb.prog3.vue;
 
+import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.Color;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 
 /**
  *
  * @author 1743379
  */
-public class Bouton extends JButton {
+public class Bouton extends JButton implements Observer {
 
-   private int positionDansQuad;
+    Modele modele;
+    private int positionDansQuad;
     private Color couleur;
+    private int positionX, positionY;
 
-    public Bouton(String texte, int positionDansQuad) {
+    public Bouton(String texte, int positionDansQuad, int posLigneQuad, int posColonneQuad, Modele modele) {
+
         super(texte);
-        this.positionDansQuad=positionDansQuad;
-    }
 
-  
+        this.modele = modele;
+        modele.addObserver(this);
+
+        this.positionDansQuad = positionDansQuad;
+    }
 
     public void setCouleur(Color couleur) {
         this.couleur = couleur;
@@ -31,6 +39,17 @@ public class Bouton extends JButton {
     public int getPositionDansQuad() {
         return positionDansQuad;
     }
-    
+
+    @Override
+    public void update(Observable o, Object arg) {
+        
+        int numeroJoueur = modele.getTabBoutonModele()[positionX][positionY][this.positionDansQuad];
+        if (numeroJoueur == 1) {         
+            this.setBackground(modele.getJoueur1().getCouleur());
+        } else if (numeroJoueur == 2) {
+            this.setBackground(modele.getJoueur2().getCouleur());
+        }
+
+    }
 
 }

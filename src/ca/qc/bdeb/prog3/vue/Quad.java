@@ -36,7 +36,7 @@ public class Quad extends JPanel implements Observer {
         this.modele = modele;
         modele.addObserver(this);
 
-        creerBoutons();
+        creerBoutons(positionX, positionY);
 
         this.setPreferredSize(new Dimension(30, 30));
         this.setLayout(new GridLayout(2, 2));
@@ -48,25 +48,36 @@ public class Quad extends JPanel implements Observer {
 
     }
 
-    public void creerBoutons() {
+    public void creerBoutons(int positionX, int positionY) {
 
         for (int i = 0; i < 4; i++) {
-           
-                Bouton btn = new Bouton(""+i,i);
-                btn.setPreferredSize(new Dimension(15, 15));
-                listeBouton.add(btn);
-                this.add(btn);
 
-                btn.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        Bouton btnClique = (Bouton) e.getSource();
-                        modele.placerMarqueur(positionX, positionY,btnClique.getPositionDansQuad());
-                    }
-                });
-            
+            Bouton btn = new Bouton("" + (i + 1), positionX, positionY, i, modele);
+            btn.setPreferredSize(new Dimension(15, 15));
+            listeBouton.add(btn);
+
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Bouton btnClique = (Bouton) e.getSource();
+                    modele.placerMarqueur(positionX, positionY, btnClique.getPositionDansQuad());
+                }
+            });
+
         }
+        this.add(listeBouton.get(1));
+        this.add(listeBouton.get(2));
+        this.add(listeBouton.get(0));
+        this.add(listeBouton.get(3));
 
+    }
+
+    public int getPositionX() {
+        return positionX;
+    }
+
+    public int getPositionY() {
+        return positionY;
     }
 
 }

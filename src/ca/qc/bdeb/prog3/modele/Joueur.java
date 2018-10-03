@@ -14,12 +14,12 @@ import java.awt.Color;
 public class Joueur {
 
     private int points;
-    private String nom;
+   private int numeroJoueur;
     private Color couleur;
 
-    public Joueur(int points, String nom, Color couleur) {
+    public Joueur(int points, int numeroJoueur, Color couleur) {
         this.points = points;
-        this.nom = nom;
+        this.numeroJoueur=numeroJoueur;
         this.couleur = couleur;
     }
 
@@ -32,6 +32,12 @@ public class Joueur {
     public Color getCouleur() {
         return couleur;
     }
+
+    public int getNumeroJoueur() {
+        return numeroJoueur;
+    }
+
+   
     
    
     

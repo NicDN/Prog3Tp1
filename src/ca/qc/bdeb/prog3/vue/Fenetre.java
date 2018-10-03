@@ -243,6 +243,7 @@ public class Fenetre extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         lblTimer.setText(modele.getMinute() + ":" + modele.getSeconde());
+        
     }
 
     private void resetPartie() {
