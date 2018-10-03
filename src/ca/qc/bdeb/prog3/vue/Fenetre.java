@@ -35,8 +35,7 @@ import javax.swing.Timer;
  * @author Nicolas
  */
 public class Fenetre extends JFrame implements Observer {
-//Faire tableau 3 dimensions
-//lA POSITION Du bouton dans le quad n'est pas important    
+ 
     private int tabBoutonVue[][][] = new int[4][4][4];
      
     private JComboBox cboBoite;
@@ -246,9 +245,7 @@ public class Fenetre extends JFrame implements Observer {
         
     }
 
-    private void resetPartie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
 
     public void confirmerQuitter() {
         int confirm = JOptionPane.showOptionDialog(null, "Voulez vous fermer l’application?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);

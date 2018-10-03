@@ -36,6 +36,14 @@ public class Joueur {
     public int getNumeroJoueur() {
         return numeroJoueur;
     }
+    public void ajouterPoints(int nombreAjouter){
+        points=points+nombreAjouter;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
 
    
     

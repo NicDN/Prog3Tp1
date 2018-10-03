@@ -37,27 +37,43 @@ public class Modele extends Observable {
 
     public void démarrer() {
 
-//        for (int i = 0; i < 32; i++) {
-//
-//            for (int j = 0; j < 2; j++) {
-//                if (j == 0) {
-//                    joueurActif = joueurA;
-//
-//                } else if (j == 1) {
-//                    joueurActif = joueurB;
-//
-//                }
-//                
-//                calculerPoints();
-//            }
-//        }
+        for (int i = 0; i < 32; i++) {
+
+            for (int j = 0; j < 2; j++) {
+                if (j == 0) {
+                    joueurActif = joueur1;
+//                    calculerPoints(joueur1);
+                } else if (j == 1) {
+                    joueurActif = joueur2;
+//                    calculerPoints(joueur2);
+                }
+
+            }
+        }
     }
 
     public void resetPartie() {
 
+//        Semble fonctionner pour l'instant
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    tabBoutonModele[i][j][k] = 0;
+                }
+            }
+
+        }
+        joueur1.setPoints(0);
+        joueur2.setPoints(0);
+
+        majObserver();
     }
 
-    public void calculerPoints() {
+    public void calculerPoints(Joueur joueur) {
+
+        calculerPoints10(joueur);
+        calculerPoints15(joueur);
+       calculerPoints20(joueur);
 
     }
 
@@ -76,9 +92,51 @@ public class Modele extends Observable {
         majObserver();
     }
 
-    private void changerCouleurPlan(Color couleur) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void calculerPoints10(Joueur joueur) {
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    if(){
+//                        quatres coins
+                    }else if(){
+//                        horizontale
+                    }else if(){
+//                        vertical
+                    }
+
+                }
+            }
+        }
     }
+
+    private void calculerPoints15(Joueur joueur) {
+
+    }
+
+    private void calculerPoints20(Joueur joueur) {
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                for (int k = 0; k < 4; k++) {
+                    if ((tabBoutonModele[i][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[i][j][k + 1] == joueur.getNumeroJoueur() && tabBoutonModele[i][j][k + 2] == joueur.getNumeroJoueur() && tabBoutonModele[i][j][k + 3] == joueur.getNumeroJoueur())) {
+                        joueur.ajouterPoints(20);
+
+                    }
+                }
+            }
+        }
+    }
+
+    public void placerMarqueur(int positionX, int positionY, int positionDansQuad) {
+
+        joueurActif = joueur2;
+
+        tabBoutonModele[positionX][positionY][positionDansQuad] = joueurActif.getNumeroJoueur();
+
+        majObserver();
+    }
+
     public int getMinute() {
         return minute;
     }
@@ -87,24 +145,16 @@ public class Modele extends Observable {
         return seconde;
     }
 
-    public void placerMarqueur(int positionX, int positionY, int positionDansQuad) {
-        joueurActif = joueur2;
-        
-        tabBoutonModele[positionX][positionY][positionDansQuad] = joueurActif.getNumeroJoueur();
-
-        majObserver();
-    }
-
-    public int[][][] getTabBoutonModele() {
-        return tabBoutonModele;
-    }
-
     public Joueur getJoueur1() {
         return joueur1;
     }
 
     public Joueur getJoueur2() {
         return joueur2;
+    }
+
+    public int[][][] getTabBoutonModele() {
+        return tabBoutonModele;
     }
 
 }

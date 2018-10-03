@@ -42,13 +42,20 @@ public class Bouton extends JButton implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        //Ne fonctionne pas
         
-        int numeroJoueur = modele.getTabBoutonModele()[positionX][positionY][this.positionDansQuad];
+        int numeroJoueur = modele.getTabBoutonModele()[positionX][positionY][positionDansQuad];
+        
         if (numeroJoueur == 1) {         
             this.setBackground(modele.getJoueur1().getCouleur());
+            this.setEnabled(false);
         } else if (numeroJoueur == 2) {
             this.setBackground(modele.getJoueur2().getCouleur());
+            this.setEnabled(false);
+        }else{
+            this.setBackground(null);
         }
+        
 
     }
 
