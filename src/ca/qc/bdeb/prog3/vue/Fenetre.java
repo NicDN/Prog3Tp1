@@ -46,8 +46,8 @@ public class Fenetre extends JFrame implements Observer {
     private JPanel pnlJeu;
     private JPanel pnlPrincipal2;
 
-    private JLabel lblPointsHaut;
-    private JLabel lblPointsBas;
+    private LabelPoints lblPointsHaut;
+    private LabelPoints lblPointsBas;
     private JLabel lblTitre;
     private JLabel lblTimer;
 
@@ -80,7 +80,7 @@ public class Fenetre extends JFrame implements Observer {
         déclarerComposantes();
 
         setTitle("Hijara");
-        setSize(500, 850);
+        setSize(570, 850);
         creer();
 
         creerEventsMenu();
@@ -121,12 +121,12 @@ public class Fenetre extends JFrame implements Observer {
         pnlJeu = new JPanel(new GridLayout(4, 4));
         pnlJeu.setPreferredSize(new Dimension(500, 500));
 
-        lblPointsHaut = new JLabel("Yellow 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
-        lblPointsBas = new JLabel("Blue 5 10 15 20 25 30 35 40 45 50 55 60 65 points ");
-        lblTitre = new JLabel("           Hijara");
+        lblPointsHaut = new LabelPoints(modele,modele.getJoueur1());
+        lblPointsBas = new LabelPoints(modele,modele.getJoueur2());
+        lblTitre = new JLabel("               Hijara");
         lblTitre.setFont(new Font("Elephant", Font.BOLD, 42));
         lblTitre.setPreferredSize(new Dimension(500, 50));
-        lblTimer = new JLabel("cghfg");
+        lblTimer = new JLabel("0:00");
 
         mnuBar = new JMenuBar();
         mnuFichier = new JMenu("Fichier");
@@ -150,7 +150,7 @@ public class Fenetre extends JFrame implements Observer {
 
         mnuBar.add(mnuAide);
 
-//        this.add(mnuBar, BorderLayout.NORTH);
+
         pnlPrincipal2.add(mnuBar, BorderLayout.NORTH);
     }
 

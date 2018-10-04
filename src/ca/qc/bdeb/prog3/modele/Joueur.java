@@ -37,12 +37,15 @@ public class Joueur {
         return numeroJoueur;
     }
     public void ajouterPoints(int nombreAjouter){
-        points=points+nombreAjouter;
+        this.points=nombreAjouter;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
+    public int getPoints() {
+        return points;
     }
+     
+
+    
     
 
    

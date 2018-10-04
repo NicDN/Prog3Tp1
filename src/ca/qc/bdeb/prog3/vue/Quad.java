@@ -54,7 +54,12 @@ public class Quad extends JPanel implements Observer {
         for (int i = 0; i < 4; i++) {
 
             Bouton btn = new Bouton("" + (i + 1), positionX, positionY, i, modele);
-            
+            if(i==0){
+                btn.setEnabled(true);
+            }
+            else{
+                btn.setEnabled(false);
+            }
             
             btn.setPreferredSize(new Dimension(15, 15));
             listeBouton.add(btn);
@@ -63,10 +68,16 @@ public class Quad extends JPanel implements Observer {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Bouton btnClique = (Bouton) e.getSource();
-                    positionBtnListe=listeBouton.indexOf(btnClique);
+                    positionBtnListe=listeBouton.indexOf(btnClique); 
                  
                     modele.placerMarqueur(positionX, positionY, btnClique.getPositionDansQuad(),positionBtnListe);
                     System.out.println("x,y,z:" + positionX + "/" + positionY + "/" + btnClique.getPositionDansQuad());
+                    
+                    try{
+                        listeBouton.get(positionBtnListe+1).setEnabled(true);
+                    }catch(IndexOutOfBoundsException ex){
+                      
+                    }
                 }
             });
 
