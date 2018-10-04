@@ -56,13 +56,18 @@ public class Modele extends Observable {
     }
 
     public void calculerPoints(Joueur joueur) {
+        int point10 = 0;
+        int points15 = 0;
+        int points20 = 0;
+        try {
+            point10 = calculerPoints10(joueur);
+            points15 = calculerPoints15(joueur);
+            points20 = calculerPoints20(joueur);
+        } catch (IndexOutOfBoundsException ex) {
 
-//        int point10 = calculerPoints10(joueur);
-//        int points15 = calculerPoints15(joueur);
-//        int points20 = calculerPoints20(joueur);
-//
-//        int pointsTot = point10 + points15 + points20;
-//        joueur.ajouterPoints(pointsTot);
+        }
+        int pointsTot = point10 + points15 + points20;
+        joueur.ajouterPoints(pointsTot);
 
     }
 
