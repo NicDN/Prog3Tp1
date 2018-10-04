@@ -18,16 +18,19 @@ import javax.swing.JButton;
 public class Bouton extends JButton implements Observer {
 
     Modele modele;
+
     private int positionDansQuad;
     private Color couleur;
     private int positionX, positionY;
 
-    public Bouton(String texte, int positionDansQuad, int posLigneQuad, int posColonneQuad, Modele modele) {
+    public Bouton(String texte, int positionX, int positionY, int positionDansQuad, Modele modele) {
 
         super(texte);
-
+        this.positionX = positionX;
+        this.positionY = positionY;
         this.modele = modele;
         modele.addObserver(this);
+        setBackground(Color.WHITE);
 
         this.positionDansQuad = positionDansQuad;
     }
@@ -42,21 +45,20 @@ public class Bouton extends JButton implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //Ne fonctionne pas
-        
+
         int numeroJoueur = modele.getTabBoutonModele()[positionX][positionY][positionDansQuad];
-        
-        if (numeroJoueur == 1) {         
+
+
+        if (numeroJoueur == 1) {
             this.setBackground(modele.getJoueur1().getCouleur());
             this.setEnabled(false);
         } else if (numeroJoueur == 2) {
             this.setBackground(modele.getJoueur2().getCouleur());
             this.setEnabled(false);
-        }else{
-            this.setBackground(null);
+        } else if (numeroJoueur == 0) {
+            this.setBackground(Color.WHITE);
+            this.setEnabled(true);
         }
-        
 
     }
-
 }

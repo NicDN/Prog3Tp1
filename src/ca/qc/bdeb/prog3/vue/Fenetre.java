@@ -187,6 +187,7 @@ public class Fenetre extends JFrame implements Observer {
                 } else if (valeurSelectionee.equalsIgnoreCase("Jaune")) {
                     couleur = Color.YELLOW;
                 }
+                
                 modele.changerCouleur(couleur);
             }
 
@@ -203,8 +204,8 @@ public class Fenetre extends JFrame implements Observer {
 
                 fenetre2.add(lblCouleur);
                 fenetre2.add(cboBoite);
-
-                fenetre2.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//La fenetre option doit avoir un bouton enregistrer (pour le X et bouton enrefistrer il doit y avoir un this.dispose())
+                fenetre2.setDefaultCloseOperation(DISPOSE_ON_CLOSE); //Demander de fermer la fenetre oui ou non
                 fenetre2.setVisible(true);
             }
         });

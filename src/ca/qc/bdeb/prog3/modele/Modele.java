@@ -19,12 +19,14 @@ public class Modele extends Observable {
 
     private int tabBoutonModele[][][] = new int[4][4][4];
 
-    private Joueur joueurActif;
-
     private int minute = 0, seconde = 0;
 
     private Joueur joueur1 = new Joueur(0, 1, Color.BLUE);
     private Joueur joueur2 = new Joueur(0, 2, Color.RED);
+    private Joueur joueurActif = joueur1;
+    private int cpt = 0;
+    
+    private int position=0;
 
     public Modele() {
 
@@ -71,9 +73,9 @@ public class Modele extends Observable {
 
     public void calculerPoints(Joueur joueur) {
 
-        calculerPoints10(joueur);
-        calculerPoints15(joueur);
-       calculerPoints20(joueur);
+//        calculerPoints10(joueur);
+//        calculerPoints15(joueur);
+//        calculerPoints20(joueur);
 
     }
 
@@ -87,9 +89,36 @@ public class Modele extends Observable {
     }
 
     public void changerCouleur(Color couleur) {
+        
+        Color saCouleur=joueurActif.getCouleur();
         joueurActif.setCouleur(couleur);
-//        changerCouleurPlan(couleur);
+        
+        for(int i=0;i<tabBoutonModele.length;i++){
+            for(int j=0;j<tabBoutonModele[i].length;j++){
+                for(int k=0;k<tabBoutonModele[i][j].length;k++){
+                    if(tabBoutonModele[i][j][k]==1){
+//                        changer la couleur a cette position
+                    }else if(tabBoutonModele[i][j][k]==2){
+                        
+                    }
+                            
+                }
+                
+            }
+        }
+        
+        
+        
+        
+        changerCouleurPlan(couleur);
+        
+        
+        
         majObserver();
+    }
+
+    private void changerCouleurPlan(Color couleur) {
+
     }
 
     private void calculerPoints10(Joueur joueur) {
@@ -97,13 +126,20 @@ public class Modele extends Observable {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
-                    if(){
-//                        quatres coins
-                    }else if(){
-//                        horizontale
-                    }else if(){
+                    if ((tabBoutonModele[0][0][k] == joueur.getNumeroJoueur() && tabBoutonModele[0][3][k] == joueur.getNumeroJoueur() && tabBoutonModele[3][0][k] == joueur.getNumeroJoueur() && tabBoutonModele[3][3][k] == joueur.getNumeroJoueur())) {
+                        //quatres coins
+                        joueur.ajouterPoints(10);
+
+                    } else if (tabBoutonModele[i][0][k] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][k] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][k] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][k] == joueur.getNumeroJoueur()) {
+//                         horizontal
+                        joueur.ajouterPoints(10);
+                    } else if (tabBoutonModele[0][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[1][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[2][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[3][j][k] == joueur.getNumeroJoueur()) {
 //                        vertical
+                        joueur.ajouterPoints(10);
                     }
+//                    else if(){
+////                        Diagonale
+//                    }
 
                 }
             }
@@ -128,13 +164,31 @@ public class Modele extends Observable {
         }
     }
 
-    public void placerMarqueur(int positionX, int positionY, int positionDansQuad) {
+    public void placerMarqueur(int positionX, int positionY, int positionDansQuad,int positionBtnListe) {
 
-        joueurActif = joueur2;
+// Grosse validation
+
+//if(position==positionBtnListe-1){
+//    
+//}
+
+
 
         tabBoutonModele[positionX][positionY][positionDansQuad] = joueurActif.getNumeroJoueur();
 
         majObserver();
+
+        cpt++;
+        calculerPoints(joueurActif);
+        if (cpt == 64) {
+            terminerPartie();
+        } else {
+            if (joueurActif == joueur1) {
+                joueurActif = joueur2;
+            } else if (joueurActif == joueur2) {
+                joueurActif = joueur1;
+            }
+        }
     }
 
     public int getMinute() {
@@ -155,6 +209,10 @@ public class Modele extends Observable {
 
     public int[][][] getTabBoutonModele() {
         return tabBoutonModele;
+    }
+
+    private void terminerPartie() {
+        
     }
 
 }
