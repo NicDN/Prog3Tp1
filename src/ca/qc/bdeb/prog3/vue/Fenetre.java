@@ -5,6 +5,7 @@
  */
 package ca.qc.bdeb.prog3.vue;
 
+import ca.qc.bdeb.prog3.modele.Joueur;
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,9 +37,10 @@ import javax.swing.Timer;
  * @author Nicolas
  */
 public class Fenetre extends JFrame implements Observer {
- 
+
+    private ArrayList<Quad> listeQuad = new ArrayList();
     private int tabBoutonVue[][][] = new int[4][4][4];
-     
+
     private JComboBox cboBoite;
 
     private JFrame fenetre2;
@@ -46,8 +49,8 @@ public class Fenetre extends JFrame implements Observer {
     private JPanel pnlJeu;
     private JPanel pnlPrincipal2;
 
-    private LabelPoints lblPointsHaut;
-    private LabelPoints lblPointsBas;
+    private PanelPoints lblPointsHaut;
+    private PanelPoints lblPointsBas;
     private JLabel lblTitre;
     private JLabel lblTimer;
 
@@ -121,8 +124,8 @@ public class Fenetre extends JFrame implements Observer {
         pnlJeu = new JPanel(new GridLayout(4, 4));
         pnlJeu.setPreferredSize(new Dimension(500, 500));
 
-        lblPointsHaut = new LabelPoints(modele,modele.getJoueur1());
-        lblPointsBas = new LabelPoints(modele,modele.getJoueur2());
+        lblPointsHaut = new PanelPoints(modele, modele.getJoueur1());
+        lblPointsBas = new PanelPoints(modele, modele.getJoueur2());
         lblTitre = new JLabel("               Hijara");
         lblTitre.setFont(new Font("Elephant", Font.BOLD, 42));
         lblTitre.setPreferredSize(new Dimension(500, 50));
@@ -150,7 +153,6 @@ public class Fenetre extends JFrame implements Observer {
 
         mnuBar.add(mnuAide);
 
-
         pnlPrincipal2.add(mnuBar, BorderLayout.NORTH);
     }
 
@@ -158,12 +160,30 @@ public class Fenetre extends JFrame implements Observer {
 
     }
 
+    private void reset() {
+        for (int i = 0; i < listeQuad.size(); i++) {
+            for (int j = 0; j < 4; j++) {
+
+                listeQuad.get(i).getListeBouton().get(j).setEnabled(false);
+
+                if (listeQuad.get(i).getListeBouton().indexOf(listeQuad.get(i).getListeBouton().get(j)) == 0) {
+
+                    listeQuad.get(i).getListeBouton().get(j).setEnabled(true);
+                }
+
+            }
+
+        }
+        modele.resetPartie();
+    }
+
     public void creerEventsMenu() {
 
         mnuNouvellePartie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                modele.resetPartie();
+
+                reset();
             }
 
         });
@@ -176,7 +196,7 @@ public class Fenetre extends JFrame implements Observer {
 
                 String valeurSelectionee = (String) cboBoite.getSelectedItem();
                 Color couleur = null;
-                
+
                 if (valeurSelectionee.equalsIgnoreCase("Vert")) {
                     couleur = Color.GREEN;
 
@@ -187,7 +207,7 @@ public class Fenetre extends JFrame implements Observer {
                 } else if (valeurSelectionee.equalsIgnoreCase("Jaune")) {
                     couleur = Color.YELLOW;
                 }
-                
+
                 modele.changerCouleur(couleur);
             }
 
@@ -205,7 +225,7 @@ public class Fenetre extends JFrame implements Observer {
                 fenetre2.add(lblCouleur);
                 fenetre2.add(cboBoite);
 
-                fenetre2.setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
+                fenetre2.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 fenetre2.setVisible(true);
             }
         });
@@ -229,13 +249,14 @@ public class Fenetre extends JFrame implements Observer {
     private void creerTableJeu() {
 
         for (int i = 0; i < 4; i++) {
-            
-            for(int j=0;j<4;j++){
-                
-                quad = new Quad(modele,i,j);
+
+            for (int j = 0; j < 4; j++) {
+
+                quad = new Quad(modele, i, j);
+                listeQuad.add(quad);
                 pnlJeu.add(quad);
             }
-     
+
         }
         pnlPrincipal1.add(pnlJeu, BorderLayout.CENTER);
     }
@@ -244,9 +265,24 @@ public class Fenetre extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
         lblTimer.setText(modele.getMinute() + ":" + modele.getSeconde());
         
-    }
+        if (modele.isIsDone()) {
+            String texte = null;
+            if (modele.saCouleur() == null) {
+                texte = "Partie nulle";
 
-   
+            } else if (modele.saCouleur() != null) {
+                System.out.println("C'est fini " + modele.saCouleur());
+                texte = "Le joueur " + modele.saCouleur() + " a gagné.";
+
+            }
+            int confirm = JOptionPane.showOptionDialog(Fenetre.this, texte + "Voulez vous recommencer à jouer?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            if (confirm == JOptionPane.YES_OPTION) {
+                reset();
+            } else if (confirm == JOptionPane.NO_OPTION) {
+                System.exit(0);
+            }
+        }
+    }
 
     public void confirmerQuitter() {
         int confirm = JOptionPane.showOptionDialog(null, "Voulez vous fermer l’application?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -257,7 +293,7 @@ public class Fenetre extends JFrame implements Observer {
     }
 
     public void démarrerTimer() {
-       // timer.start();
+         timer.start();
     }
 
     public Timer getTimer() {

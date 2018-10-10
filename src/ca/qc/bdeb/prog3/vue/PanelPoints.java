@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  *
  * @author 1743379
  */
-public class LabelPoints extends JPanel implements Observer {
+public class PanelPoints extends JPanel implements Observer {
     
     Modele modele;
     private Joueur joueur;
@@ -31,7 +31,7 @@ public class LabelPoints extends JPanel implements Observer {
     private JLabel lblCouleur = new JLabel();
     private JLabel lblPts = new JLabel("Points");
     
-    public LabelPoints(Modele modele, Joueur joueur) {
+    public PanelPoints(Modele modele, Joueur joueur) {
         
         creerPanneau(joueur);
         this.joueur = joueur;
@@ -48,6 +48,8 @@ public class LabelPoints extends JPanel implements Observer {
         for (int i = 0; i < listePoints.size(); i++) {
             if (joueur.getPoints() == Integer.parseInt(listePoints.get(i).getText())) {
                 listePoints.get(i).setForeground(joueur.getCouleur());
+            }else{
+                 listePoints.get(i).setForeground(null);
             }
         }
     }

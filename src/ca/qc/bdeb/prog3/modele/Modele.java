@@ -17,6 +17,8 @@ import javax.swing.JButton;
  */
 public class Modele extends Observable {
 
+    private String saCouleur = null;
+    private boolean isDone = false;
     private int tabBoutonModele[][][] = new int[4][4][4];
 
     private int minute = 0, seconde = 0;
@@ -39,7 +41,8 @@ public class Modele extends Observable {
 
     public void resetPartie() {
 
-//       Ne fonctionne pas, continue de se souvenir lequel a ete cliquer
+cpt=0;
+isDone=false;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
@@ -92,13 +95,13 @@ public class Modele extends Observable {
             for (int j = 0; j < tabBoutonModele[i].length; j++) {
                 for (int k = 0; k < tabBoutonModele[i][j].length; k++) {
                     if (tabBoutonModele[i][j][k] == 1) {
-                         majObserver();
-                        
+                        majObserver();
+
                     } else if (tabBoutonModele[i][j][k] == 2) {
-                         majObserver();
-                       
+                        majObserver();
+
                     }
-                   
+
                 }
 
             }
@@ -161,15 +164,28 @@ public class Modele extends Observable {
         for (int i = 0; i < tabBoutonModele.length; i++) {
             for (int j = 0; j < tabBoutonModele[i].length; j++) {
 
-                if ((tabBoutonModele[i][0][0] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][3] == joueur.getNumeroJoueur()) || (tabBoutonModele[i][3][0] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][0][3] == joueur.getNumeroJoueur())) {
-//                         horizontal 4321 gauche doite et 1234 droite gauche
+                if ((tabBoutonModele[i][0][0] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][3] == joueur.getNumeroJoueur()) || (tabBoutonModele[i][0][3] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][0] == joueur.getNumeroJoueur())) {
+//                         horizontal 4321 et 1234
                     points = points + 3.75;
 
                 }
-                if (tabBoutonModele[i][3][3] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][0][0] == joueur.getNumeroJoueur()) {
-//                         horizontal 4321 des deux sens
-                    points = points + 3.75;
 
+                if ((tabBoutonModele[0][j][0] == joueur.getNumeroJoueur() && tabBoutonModele[1][j][1] == joueur.getNumeroJoueur() && tabBoutonModele[2][j][2] == joueur.getNumeroJoueur() && tabBoutonModele[3][j][3] == joueur.getNumeroJoueur()) || (tabBoutonModele[0][j][3] == joueur.getNumeroJoueur() && tabBoutonModele[1][j][2] == joueur.getNumeroJoueur() && tabBoutonModele[2][j][1] == joueur.getNumeroJoueur() && tabBoutonModele[3][j][0] == joueur.getNumeroJoueur())) {
+                    points = points + 3.75;
+                }
+
+                if (i == 0 && j == 0) {
+                    //diagonale
+                    if ((tabBoutonModele[i][j][0] == joueur.getNumeroJoueur() && tabBoutonModele[i + 1][j + 1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i + 2][j + 2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i + 3][j + 3][3] == joueur.getNumeroJoueur()) || (tabBoutonModele[i][j][3] == joueur.getNumeroJoueur() && tabBoutonModele[i + 1][j + 1][2] == joueur.getNumeroJoueur() && tabBoutonModele[i + 2][j + 2][1] == joueur.getNumeroJoueur() && tabBoutonModele[i + 3][j + 3][0] == joueur.getNumeroJoueur())) {
+                        points = points + 15;
+                    }
+                }
+
+                if (i == 0 && j == 3) {
+                    //diagonale
+                    if ((tabBoutonModele[i][j][0] == joueur.getNumeroJoueur() && tabBoutonModele[i + 1][j - 1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i + 2][j - 2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i + 3][j - 3][3] == joueur.getNumeroJoueur()) || (tabBoutonModele[i][j][3] == joueur.getNumeroJoueur() && tabBoutonModele[i + 1][j - 1][2] == joueur.getNumeroJoueur() && tabBoutonModele[i + 2][j - 2][1] == joueur.getNumeroJoueur() && tabBoutonModele[i + 3][j - 3][0] == joueur.getNumeroJoueur())) {
+                        points = points + 15;
+                    }
                 }
 
             }
@@ -201,9 +217,13 @@ public class Modele extends Observable {
         majObserver();
 
         cpt++;
+
         calculerPoints(joueurActif);
         if (cpt == 64) {
-            terminerPartie();
+          
+            isDone = true;
+            saCouleur();
+            majObserver();
         } else {
             if (joueurActif == joueur1) {
                 joueurActif = joueur2;
@@ -236,6 +256,47 @@ public class Modele extends Observable {
 
     private void terminerPartie() {
 
+    }
+
+    /**
+     *
+     * @return null si aucun gagnant, string s'il y a un gagnant
+     */
+    public String saCouleur() {
+
+        // vérifications ici
+        String saCouleur = null;
+        if (joueur1.getPoints() > joueur2.getPoints()) {
+
+            if (joueur1.getCouleur() == Color.BLUE) {
+                saCouleur = "Blue";
+            } else if (joueur1.getCouleur() == Color.RED) {
+                saCouleur = "Red";
+            } else if (joueur1.getCouleur() == Color.GREEN) {
+                saCouleur = "Green";
+            } else if (joueur1.getCouleur() == Color.YELLOW) {
+                saCouleur = "Yellow";
+            }
+
+        } else if (joueur1.getPoints() < joueur2.getPoints()) {
+
+            if (joueur2.getCouleur() == Color.BLUE) {
+                saCouleur = "Blue";
+            } else if (joueur2.getCouleur() == Color.RED) {
+                saCouleur = "Red";
+            } else if (joueur2.getCouleur() == Color.GREEN) {
+                saCouleur = "Green";
+            } else if (joueur2.getCouleur() == Color.YELLOW) {
+                saCouleur = "Yellow";
+            }
+
+        }
+
+        return saCouleur;
+    }
+
+    public boolean isIsDone() {
+        return isDone;
     }
 
 }
