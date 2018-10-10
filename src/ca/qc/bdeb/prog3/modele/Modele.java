@@ -57,18 +57,18 @@ public class Modele extends Observable {
 
     public void calculerPoints(Joueur joueur) {
         double point10 = 0;
-        double points15Gauche = 0;
-        double points15Droite = 0;
+        double points15 = 0;
+
         double points20 = 0;
         try {
             point10 = calculerPoints10(joueur);
-            points15Gauche = calculerPoints15Gauche(joueur);
-            points15Droite = calculerPointsDroite(joueur);
+            points15 = calculerPoints15(joueur);
+
             points20 = calculerPoints20(joueur);
         } catch (IndexOutOfBoundsException ex) {
 
         }
-        double pointsTot = point10 + points15Gauche + points15Droite + points20;
+        double pointsTot = point10 + points15 + points20;
         joueur.ajouterPoints(pointsTot);
 
         majObserver();
@@ -91,21 +91,20 @@ public class Modele extends Observable {
         for (int i = 0; i < tabBoutonModele.length; i++) {
             for (int j = 0; j < tabBoutonModele[i].length; j++) {
                 for (int k = 0; k < tabBoutonModele[i][j].length; k++) {
-//                    if (tabBoutonModele[i][j][k] == 1) {
-//                        
-//                        joueurActif.setCouleur(couleur);
-//                    } else if (tabBoutonModele[i][j][k] == 2) {
-//                        
-//                        joueurActif.setCouleur(couleur);
-//                    }
-
+                    if (tabBoutonModele[i][j][k] == 1) {
+                         majObserver();
+                        
+                    } else if (tabBoutonModele[i][j][k] == 2) {
+                         majObserver();
+                       
+                    }
+                   
                 }
 
             }
         }
 
 //        changerCouleurPlan(couleur);
-        majObserver();
     }
 
     private void changerCouleurPlan(Color couleur) {
@@ -156,42 +155,28 @@ public class Modele extends Observable {
 
     }
 
-    private double calculerPoints15Gauche(Joueur joueur) {
+    private double calculerPoints15(Joueur joueur) {
         int k = 0;
         double points = 0;
         for (int i = 0; i < tabBoutonModele.length; i++) {
             for (int j = 0; j < tabBoutonModele[i].length; j++) {
 
-                if ((tabBoutonModele[i][0][0] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][ 2] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][ 3] == joueur.getNumeroJoueur())   ||(tabBoutonModele[i][0][4] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][3] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][ 2] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][ 1] == joueur.getNumeroJoueur())) {
-//                         horizontal
+                if ((tabBoutonModele[i][0][0] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][3] == joueur.getNumeroJoueur()) || (tabBoutonModele[i][3][0] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][0][3] == joueur.getNumeroJoueur())) {
+//                         horizontal 4321 gauche doite et 1234 droite gauche
                     points = points + 3.75;
 
-   
+                }
+                if (tabBoutonModele[i][3][3] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][0][0] == joueur.getNumeroJoueur()) {
+//                         horizontal 4321 des deux sens
+                    points = points + 3.75;
+
                 }
 
             }
         }
 
         return points;
-
-    }
-
-    private double calculerPointsDroite(Joueur joueur) {
-        
-        
-        double points = 0;
-        for (int i = 0; i < tabBoutonModele.length; i++) {
-            for (int j = 0; j < tabBoutonModele[i].length; j++) {
-                 if (tabBoutonModele[i][3][3] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1 ] == joueur.getNumeroJoueur() && tabBoutonModele[i][0][0] == joueur.getNumeroJoueur()) {
-//                         horizontal
-                    points = points + 3.75;
-
-                   
-                }
-            }
-        }
-        return points;
-
+//pas fini
     }
 
     private int calculerPoints20(Joueur joueur) {

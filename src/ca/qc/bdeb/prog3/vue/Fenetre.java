@@ -204,8 +204,8 @@ public class Fenetre extends JFrame implements Observer {
 
                 fenetre2.add(lblCouleur);
                 fenetre2.add(cboBoite);
-//La fenetre option doit avoir un bouton enregistrer (pour le X et bouton enrefistrer il doit y avoir un this.dispose())
-                fenetre2.setDefaultCloseOperation(DISPOSE_ON_CLOSE); //Demander de fermer la fenetre oui ou non
+
+                fenetre2.setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
                 fenetre2.setVisible(true);
             }
         });
