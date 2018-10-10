@@ -57,16 +57,18 @@ public class Modele extends Observable {
 
     public void calculerPoints(Joueur joueur) {
         double point10 = 0;
-        double points15 = 0;
+        double points15Gauche = 0;
+        double points15Droite = 0;
         double points20 = 0;
         try {
             point10 = calculerPoints10(joueur);
-            points15 = calculerPoints15(joueur);
+            points15Gauche = calculerPoints15Gauche(joueur);
+            points15Droite = calculerPointsDroite(joueur);
             points20 = calculerPoints20(joueur);
         } catch (IndexOutOfBoundsException ex) {
 
         }
-        double pointsTot = point10 + points15 + points20;
+        double pointsTot = point10 + points15Gauche + points15Droite + points20;
         joueur.ajouterPoints(pointsTot);
 
         majObserver();
@@ -113,7 +115,7 @@ public class Modele extends Observable {
     private double calculerPoints10(Joueur joueur) {
 
         double points = 0;
-        int nb = 0;
+
         for (int i = 0; i < tabBoutonModele.length; i++) {
             for (int j = 0; j < tabBoutonModele[i].length; j++) {
 
@@ -123,13 +125,13 @@ public class Modele extends Observable {
 //                         horizontal
                         points = points + 2.5;
 
-                      //rentre 4 fois dans boucle
+                        //rentre 4 fois dans boucle
                     }
 
                     if (tabBoutonModele[0][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[1][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[2][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[3][j][k] == joueur.getNumeroJoueur()) {
 //                        vertical
                         points = points + 2.5;
-                       //rentre 4 fois dans boucle
+                        //rentre 4 fois dans boucle
                     }
 
                     if (i == 0 && j == 0) {
@@ -138,14 +140,13 @@ public class Modele extends Observable {
                             points = points + 10;
                         }
                     }
-                    
+
                     if (i == 0 && j == 3) {
                         //diagonale
-                        if(tabBoutonModele[i][j][k]==joueur.getNumeroJoueur()&&tabBoutonModele[i+1][j-1][k]==joueur.getNumeroJoueur()&&tabBoutonModele[i+2][j-2][k]==joueur.getNumeroJoueur()&&tabBoutonModele[i+3][j-3][k]==joueur.getNumeroJoueur()){
-                           points = points + 10;
+                        if (tabBoutonModele[i][j][k] == joueur.getNumeroJoueur() && tabBoutonModele[i + 1][j - 1][k] == joueur.getNumeroJoueur() && tabBoutonModele[i + 2][j - 2][k] == joueur.getNumeroJoueur() && tabBoutonModele[i + 3][j - 3][k] == joueur.getNumeroJoueur()) {
+                            points = points + 10;
                         }
                     }
-
 
                 }
             }
@@ -155,9 +156,40 @@ public class Modele extends Observable {
 
     }
 
-    private int calculerPoints15(Joueur joueur) {
+    private double calculerPoints15Gauche(Joueur joueur) {
+        int k = 0;
+        double points = 0;
+        for (int i = 0; i < tabBoutonModele.length; i++) {
+            for (int j = 0; j < tabBoutonModele[i].length; j++) {
 
-        int points = 0;
+                if ((tabBoutonModele[i][0][0] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][ 2] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][ 3] == joueur.getNumeroJoueur())   ||(tabBoutonModele[i][0][4] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][3] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][ 2] == joueur.getNumeroJoueur() && tabBoutonModele[i][3][ 1] == joueur.getNumeroJoueur())) {
+//                         horizontal
+                    points = points + 3.75;
+
+   
+                }
+
+            }
+        }
+
+        return points;
+
+    }
+
+    private double calculerPointsDroite(Joueur joueur) {
+        
+        
+        double points = 0;
+        for (int i = 0; i < tabBoutonModele.length; i++) {
+            for (int j = 0; j < tabBoutonModele[i].length; j++) {
+                 if (tabBoutonModele[i][3][3] == joueur.getNumeroJoueur() && tabBoutonModele[i][2][2] == joueur.getNumeroJoueur() && tabBoutonModele[i][1][1 ] == joueur.getNumeroJoueur() && tabBoutonModele[i][0][0] == joueur.getNumeroJoueur()) {
+//                         horizontal
+                    points = points + 3.75;
+
+                   
+                }
+            }
+        }
         return points;
 
     }
