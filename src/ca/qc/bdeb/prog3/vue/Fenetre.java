@@ -257,7 +257,7 @@ public class Fenetre extends JFrame implements Observer {
     }
 
     public void démarrerTimer() {
-        timer.start();
+       // timer.start();
     }
 
     public Timer getTimer() {

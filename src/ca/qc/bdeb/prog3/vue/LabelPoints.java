@@ -72,7 +72,7 @@ public class LabelPoints extends JPanel implements Observer {
         for (int i = 5; i <= 65; i += 5) {
             
             JLabel lbl = new JLabel("" + i);
-            
+            listePoints.add(lbl);
             this.add(lbl);
             
         }
