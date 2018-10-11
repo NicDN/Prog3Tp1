@@ -37,7 +37,7 @@ import javax.swing.Timer;
  * @author Nicolas
  */
 public class Fenetre extends JFrame implements Observer {
-
+//Restarter le timer lorsque je redémarre!
     private ArrayList<Quad> listeQuad = new ArrayList();
     private int tabBoutonVue[][][] = new int[4][4][4];
 
@@ -174,6 +174,7 @@ public class Fenetre extends JFrame implements Observer {
             }
 
         }
+        
         modele.resetPartie();
     }
 
