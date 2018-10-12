@@ -8,6 +8,7 @@ package ca.qc.bdeb.prog3.vue;
 import ca.qc.bdeb.prog3.modele.Joueur;
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.Color;
+import java.awt.Font;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -25,7 +26,6 @@ public class PanelPoints extends JPanel implements Observer {
 
     Modele modele;
     private Joueur joueur;
-//    private int tabPoints[] = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65};
 
     private ArrayList<JLabel> listePoints = new ArrayList<JLabel>();
     private JLabel lblCouleur = new JLabel();
@@ -42,7 +42,27 @@ public class PanelPoints extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-//Lorsque le calcul des points et du changement de couleur sera appeler, mettre ceci a jour
+
+        boolean bool = modele.vérifierJoueurAcif();
+        String couleur1 = vérifierCouleur(modele.getJoueur1());
+        String couleur2 = vérifierCouleur(modele.getJoueur2());
+       
+        if (bool) {
+
+            if (lblCouleur.getText() == couleur1) {
+                lblCouleur.setFont(new Font("Times New Roman", Font.BOLD, 17));
+            } else {
+                lblCouleur.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+            }
+
+        } else {
+            if (lblCouleur.getText() == couleur2) {
+                lblCouleur.setFont(new Font("Times New Roman", Font.BOLD, 17));
+            } else {
+                lblCouleur.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+            }
+        }
+
         for (int i = 0; i < listePoints.size(); i++) {
             if (joueur.getPoints() == Integer.parseInt(listePoints.get(i).getText())) {
                 listePoints.get(i).setForeground(joueur.getCouleur());
@@ -55,6 +75,7 @@ public class PanelPoints extends JPanel implements Observer {
         couleur = vérifierCouleur(joueur);
 
         lblCouleur.setText(couleur);
+
     }
 
     private void creerPanneau(Joueur joueur) {
@@ -77,7 +98,7 @@ public class PanelPoints extends JPanel implements Observer {
     }
 
     private String vérifierCouleur(Joueur joueur) {
-        
+
         String couleur = null;
         if (joueur.getCouleur() == Color.BLUE) {
             couleur = "Blue";

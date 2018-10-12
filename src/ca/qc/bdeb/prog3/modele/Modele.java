@@ -28,8 +28,8 @@ public class Modele extends Observable {
 
     private int position = 0;
     private Color saCouleur;
-    
-    private String texteTemps=null;
+
+    private String texteTemps = null;
 
     public Modele() {
 
@@ -41,9 +41,9 @@ public class Modele extends Observable {
     }
 
     public void resetPartie() {
-
+        
         cpt = 0;
-        isDone = false;
+        joueurActif = joueur1;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
@@ -53,12 +53,13 @@ public class Modele extends Observable {
             }
 
         }
+
         joueur1.ajouterPoints(0);
         joueur2.ajouterPoints(0);
         seconde = 0;
         minute = 0;
-
         majObserver();
+        
     }
 
     public void calculerPoints(Joueur joueur) {
@@ -77,7 +78,7 @@ public class Modele extends Observable {
         double pointsTot = point10 + points15 + points20;
         joueur.ajouterPoints(pointsTot);
 
-        majObserver();
+        //majObserver();
     }
 
     public void chronometrer() {
@@ -95,7 +96,7 @@ public class Modele extends Observable {
 
         joueurActif.setCouleur(couleur);
         boolean erreur = false;
-        
+
         if (joueur1.getCouleur() == joueur2.getCouleur()) {
             erreur = true;
             joueurActif.setCouleur(saCouleur);
@@ -104,7 +105,6 @@ public class Modele extends Observable {
 
         return erreur;
     }
-
 
     private double calculerPoints10(Joueur joueur) {
 
@@ -206,7 +206,7 @@ public class Modele extends Observable {
 
         tabBoutonModele[positionX][positionY][positionDansQuad] = joueurActif.getNumeroJoueur();
 
-        majObserver();
+        
 
         cpt++;
 
@@ -215,7 +215,8 @@ public class Modele extends Observable {
 
             isDone = true;
             saCouleur();
-            majObserver();
+//            majObserver();
+//            isDone=false;
         } else {
             if (joueurActif == joueur1) {
                 joueurActif = joueur2;
@@ -223,7 +224,7 @@ public class Modele extends Observable {
                 joueurActif = joueur1;
             }
         }
-
+        majObserver();
     }
 
     public int getMinute() {
@@ -231,7 +232,7 @@ public class Modele extends Observable {
     }
 
     public int getSeconde() {
-        
+
         return seconde;
     }
 
@@ -292,6 +293,10 @@ public class Modele extends Observable {
         return isDone;
     }
 
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     public void setMinute(int minute) {
         this.minute = minute;
     }
@@ -299,7 +304,6 @@ public class Modele extends Observable {
     public void setSeconde(int seconde) {
         this.seconde = seconde;
     }
-
 
     public Joueur getJoueurActif() {
         return joueurActif;
@@ -311,13 +315,21 @@ public class Modele extends Observable {
 
     public String getTexteTemps() {
         String textTemps = null;
-        if(seconde<10 ){
-          textTemps=minute+":0"+seconde;
+        if (seconde < 10) {
+            textTemps = minute + ":0" + seconde;
 
-        }else if(seconde>=10){
-            textTemps=minute+":"+seconde;
+        } else if (seconde >= 10) {
+            textTemps = minute + ":" + seconde;
         }
         return textTemps;
+    }
+
+    public boolean vérifierJoueurAcif() {
+        boolean bool = false;
+        if (joueurActif == joueur1) {
+            bool = true;
+        }
+        return bool;
     }
 
 }

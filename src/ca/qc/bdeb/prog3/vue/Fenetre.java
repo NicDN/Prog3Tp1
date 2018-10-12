@@ -7,6 +7,7 @@ package ca.qc.bdeb.prog3.vue;
 
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -15,7 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,7 +38,6 @@ import javax.swing.Timer;
  */
 public class Fenetre extends JFrame implements Observer {
 
-
     private ArrayList<Quad> listeQuad = new ArrayList();
     private int tabBoutonVue[][][] = new int[4][4][4];
 
@@ -47,8 +49,8 @@ public class Fenetre extends JFrame implements Observer {
     private JPanel pnlJeu;
     private JPanel pnlPrincipal2;
 
-    private PanelPoints lblPointsHaut;
-    private PanelPoints lblPointsBas;
+    private PanelPoints pnlPointsHaut;
+    private PanelPoints pnlPointsBas;
     private JLabel lblTitre;
     private JLabel lblTimer;
 
@@ -105,11 +107,11 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal2.add(lblTimer, BorderLayout.EAST);
         this.add(pnlPrincipal2, BorderLayout.NORTH);
 
-        pnlPrincipal1.add(lblPointsHaut, BorderLayout.NORTH);
+        pnlPrincipal1.add(pnlPointsHaut, BorderLayout.NORTH);
 
         creerTableJeu();
 
-        pnlPrincipal1.add(lblPointsBas, BorderLayout.SOUTH);
+        pnlPrincipal1.add(pnlPointsBas, BorderLayout.SOUTH);
 
         this.add(pnlPrincipal1, BorderLayout.CENTER);
     }
@@ -122,8 +124,8 @@ public class Fenetre extends JFrame implements Observer {
         pnlJeu = new JPanel(new GridLayout(4, 4));
         pnlJeu.setPreferredSize(new Dimension(500, 500));
 
-        lblPointsHaut = new PanelPoints(modele, modele.getJoueur1());
-        lblPointsBas = new PanelPoints(modele, modele.getJoueur2());
+        pnlPointsHaut = new PanelPoints(modele, modele.getJoueur1());
+        pnlPointsBas = new PanelPoints(modele, modele.getJoueur2());
         lblTitre = new JLabel("Hijara", JLabel.CENTER);
         lblTitre.setFont(new Font("Elephant", Font.BOLD, 42));
         lblTitre.setPreferredSize(new Dimension(500, 50));
@@ -155,6 +157,7 @@ public class Fenetre extends JFrame implements Observer {
     }
 
     private void reset() {
+
         for (int i = 0; i < listeQuad.size(); i++) {
             for (int j = 0; j < 4; j++) {
 
@@ -240,12 +243,14 @@ public class Fenetre extends JFrame implements Observer {
                 texte = "Le joueur " + modele.saCouleur() + " a gagné.";
 
             }
-            int confirm = JOptionPane.showConfirmDialog(Fenetre.this, texte + "Voulez vous recommencer à jouer?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int confirm = JOptionPane.showConfirmDialog(this, texte + "Voulez vous recommencer à jouer?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
-                reset();
-            } else if (confirm == JOptionPane.NO_OPTION) {
+
+               reset();
+            } else {
                 System.exit(0);
             }
+            //modele.setIsDone(false);
         }
 
     }
