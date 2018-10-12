@@ -8,8 +8,8 @@ package ca.qc.bdeb.prog3.vue;
 import ca.qc.bdeb.prog3.modele.Joueur;
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
@@ -20,6 +20,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.ButtonGroup;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -30,6 +31,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
 /**
@@ -38,6 +40,7 @@ import javax.swing.Timer;
  */
 public class Fenetre extends JFrame implements Observer {
 //Restarter le timer lorsque je redémarre!
+
     private ArrayList<Quad> listeQuad = new ArrayList();
     private int tabBoutonVue[][][] = new int[4][4][4];
 
@@ -126,7 +129,7 @@ public class Fenetre extends JFrame implements Observer {
 
         lblPointsHaut = new PanelPoints(modele, modele.getJoueur1());
         lblPointsBas = new PanelPoints(modele, modele.getJoueur2());
-        lblTitre = new JLabel("               Hijara");
+        lblTitre = new JLabel("Hijara", JLabel.CENTER);
         lblTitre.setFont(new Font("Elephant", Font.BOLD, 42));
         lblTitre.setPreferredSize(new Dimension(500, 50));
         lblTimer = new JLabel("0:00");
@@ -156,8 +159,6 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal2.add(mnuBar, BorderLayout.NORTH);
     }
 
-    
-
     private void reset() {
         for (int i = 0; i < listeQuad.size(); i++) {
             for (int j = 0; j < 4; j++) {
@@ -172,7 +173,7 @@ public class Fenetre extends JFrame implements Observer {
             }
 
         }
-        
+
         modele.resetPartie();
     }
 
@@ -183,7 +184,7 @@ public class Fenetre extends JFrame implements Observer {
             public void actionPerformed(ActionEvent e) {
 
                 reset();
-                
+
             }
 
         });
@@ -192,42 +193,10 @@ public class Fenetre extends JFrame implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                creerFenetreCouleur();
+                FenetreOptions fenetreOptions = new FenetreOptions(modele);
 
-                String valeurSelectionee = (String) cboBoite.getSelectedItem();
-                Color couleur = null;
-
-                if (valeurSelectionee.equalsIgnoreCase("Vert")) {
-                    couleur = Color.GREEN;
-
-                } else if (valeurSelectionee.equalsIgnoreCase("Rouge")) {
-                    couleur = Color.RED;
-                } else if (valeurSelectionee.equalsIgnoreCase("Bleu")) {
-                    couleur = Color.BLUE;
-                } else if (valeurSelectionee.equalsIgnoreCase("Jaune")) {
-                    couleur = Color.YELLOW;
-                }
-
-                modele.changerCouleur(couleur);
             }
 
-            private void creerFenetreCouleur() {
-                fenetre2 = new JFrame();
-                fenetre2.setLayout(new GridLayout(2, 0));
-                fenetre2.setTitle("Options");
-                fenetre2.setSize(300, 150);
-
-                JLabel lblCouleur = new JLabel("Sélectionnez une couleur:");
-                String choixCouleur[] = {"Bleu", "Rouge", "Vert", "Jaune"};
-                cboBoite = new JComboBox(choixCouleur);
-                cboBoite.setPreferredSize(new Dimension(50, 20));
-
-                fenetre2.add(lblCouleur);
-                fenetre2.add(cboBoite);
-
-                fenetre2.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                fenetre2.setVisible(true);
-            }
         });
 
         mnuQuitter.addActionListener(new ActionListener() {
@@ -263,8 +232,9 @@ public class Fenetre extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        lblTimer.setText(modele.getMinute() + ":" + modele.getSeconde());
-        
+
+        lblTimer.setText("" + modele.getTexteTemps());
+
         if (modele.isIsDone()) {
             String texte = null;
             if (modele.saCouleur() == null) {
@@ -282,6 +252,7 @@ public class Fenetre extends JFrame implements Observer {
                 System.exit(0);
             }
         }
+
     }
 
     public void confirmerQuitter() {
@@ -293,7 +264,7 @@ public class Fenetre extends JFrame implements Observer {
     }
 
     public void démarrerTimer() {
-         timer.start();
+        timer.start();
     }
 
     public Timer getTimer() {

@@ -10,6 +10,7 @@ import java.awt.Color;
 
 import java.util.Observable;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,7 +18,7 @@ import javax.swing.JButton;
  */
 public class Modele extends Observable {
 
-    private String saCouleur = null;
+//    private String saCouleur = null;
     private boolean isDone = false;
     private int tabBoutonModele[][][] = new int[4][4][4];
 
@@ -29,6 +30,9 @@ public class Modele extends Observable {
     private int cpt = 0;
 
     private int position = 0;
+    private Color saCouleur;
+    
+    private String texteTemps=null;
 
     public Modele() {
 
@@ -88,33 +92,22 @@ public class Modele extends Observable {
         majObserver();
     }
 
-    public void changerCouleur(Color couleur) {
+    public boolean changerCouleur(Color couleur) {
 
-        Color saCouleur = joueurActif.getCouleur();
+        saCouleur = joueurActif.getCouleur();
+
         joueurActif.setCouleur(couleur);
-
-        for (int i = 0; i < tabBoutonModele.length; i++) {
-            for (int j = 0; j < tabBoutonModele[i].length; j++) {
-                for (int k = 0; k < tabBoutonModele[i][j].length; k++) {
-                    if (tabBoutonModele[i][j][k] == 1) {
-                        majObserver();
-
-                    } else if (tabBoutonModele[i][j][k] == 2) {
-                        majObserver();
-
-                    }
-
-                }
-
-            }
+        boolean erreur = false;
+        
+        if (joueur1.getCouleur() == joueur2.getCouleur()) {
+            erreur = true;
+            joueurActif.setCouleur(saCouleur);
         }
+        majObserver();
 
-//        changerCouleurPlan(couleur);
+        return erreur;
     }
 
-    private void changerCouleurPlan(Color couleur) {
-
-    }
 
     private double calculerPoints10(Joueur joueur) {
 
@@ -241,6 +234,7 @@ public class Modele extends Observable {
     }
 
     public int getSeconde() {
+        
         return seconde;
     }
 
@@ -307,6 +301,26 @@ public class Modele extends Observable {
 
     public void setSeconde(int seconde) {
         this.seconde = seconde;
+    }
+
+
+    public Joueur getJoueurActif() {
+        return joueurActif;
+    }
+
+    public Color getSaCouleur() {
+        return saCouleur;
+    }
+
+    public String getTexteTemps() {
+        String textTemps = null;
+        if(seconde<10 ){
+          textTemps=minute+":0"+seconde;
+
+        }else if(seconde>=10){
+            textTemps=minute+":"+seconde;
+        }
+        return textTemps;
     }
 
 }
