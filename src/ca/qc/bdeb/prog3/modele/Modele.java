@@ -41,8 +41,8 @@ public class Modele extends Observable {
 
     public void resetPartie() {
 
-cpt=0;
-isDone=false;
+        cpt = 0;
+        isDone = false;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
@@ -54,6 +54,8 @@ isDone=false;
         }
         joueur1.ajouterPoints(0);
         joueur2.ajouterPoints(0);
+        seconde = 0;
+        minute = 0;
 
         majObserver();
     }
@@ -220,7 +222,7 @@ isDone=false;
 
         calculerPoints(joueurActif);
         if (cpt == 64) {
-          
+
             isDone = true;
             saCouleur();
             majObserver();
@@ -297,6 +299,14 @@ isDone=false;
 
     public boolean isIsDone() {
         return isDone;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public void setSeconde(int seconde) {
+        this.seconde = seconde;
     }
 
 }

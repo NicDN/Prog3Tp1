@@ -156,9 +156,7 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal2.add(mnuBar, BorderLayout.NORTH);
     }
 
-    public void creerEvents() {
-
-    }
+    
 
     private void reset() {
         for (int i = 0; i < listeQuad.size(); i++) {
@@ -185,6 +183,7 @@ public class Fenetre extends JFrame implements Observer {
             public void actionPerformed(ActionEvent e) {
 
                 reset();
+                
             }
 
         });
