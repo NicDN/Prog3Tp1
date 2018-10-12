@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Nicolas Demers-Neuwirth
  */
 package ca.qc.bdeb.prog3.vue;
 
@@ -18,10 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-/**
- *
- * @author 1743379
- */
+
 public class FenetreOptions extends JFrame implements Observer {
 
     private JRadioButton optRouge;

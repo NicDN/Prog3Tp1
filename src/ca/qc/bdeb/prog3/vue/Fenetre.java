@@ -5,11 +5,9 @@
  */
 package ca.qc.bdeb.prog3.vue;
 
-import ca.qc.bdeb.prog3.modele.Joueur;
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
@@ -20,18 +18,15 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.ButtonGroup;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
 /**
@@ -39,7 +34,7 @@ import javax.swing.Timer;
  * @author Nicolas
  */
 public class Fenetre extends JFrame implements Observer {
-//Restarter le timer lorsque je redémarre!
+
 
     private ArrayList<Quad> listeQuad = new ArrayList();
     private int tabBoutonVue[][][] = new int[4][4][4];
@@ -69,8 +64,8 @@ public class Fenetre extends JFrame implements Observer {
     Modele modele;
     private Quad quad;
 
-    private Timer timer = new Timer(1000, new ActionListener() {
-//METTRE 0 !!
+    private Timer tmr = new Timer(1000, new ActionListener() {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             modele.chronometrer();
@@ -245,7 +240,7 @@ public class Fenetre extends JFrame implements Observer {
                 texte = "Le joueur " + modele.saCouleur() + " a gagné.";
 
             }
-            int confirm = JOptionPane.showOptionDialog(Fenetre.this, texte + "Voulez vous recommencer à jouer?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+            int confirm = JOptionPane.showConfirmDialog(Fenetre.this, texte + "Voulez vous recommencer à jouer?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
                 reset();
             } else if (confirm == JOptionPane.NO_OPTION) {
@@ -264,11 +259,11 @@ public class Fenetre extends JFrame implements Observer {
     }
 
     public void démarrerTimer() {
-        timer.start();
+        tmr.start();
     }
 
     public Timer getTimer() {
-        return timer;
+        return tmr;
     }
 
 }

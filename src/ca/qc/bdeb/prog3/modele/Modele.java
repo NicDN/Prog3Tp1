@@ -5,12 +5,9 @@
  */
 package ca.qc.bdeb.prog3.modele;
 
-import ca.qc.bdeb.prog3.vue.Fenetre;
 import java.awt.Color;
 
 import java.util.Observable;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 /**
  *
