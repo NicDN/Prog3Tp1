@@ -171,7 +171,8 @@ public class Fenetre extends JFrame implements Observer {
 
                 listeQuad.get(i).getListeBouton().get(j).setEnabled(false);
 
-                if (listeQuad.get(i).getListeBouton().indexOf(listeQuad.get(i).getListeBouton().get(j)) == 0) {
+                if (listeQuad.get(i).getListeBouton().indexOf(listeQuad.get(i).
+                        getListeBouton().get(j)) == 0) {
 
                     listeQuad.get(i).getListeBouton().get(j).setEnabled(true);
                 }
@@ -218,7 +219,9 @@ public class Fenetre extends JFrame implements Observer {
         mnuAPropos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(Fenetre.this, "Nicolas Demers-Neuwirth " + " Remise le dimanche 14 octobre 2018 à minuit ");
+                JOptionPane.showMessageDialog(Fenetre.this, "Nicolas Demers-"
+                        + "Neuwirth " + " Remise le dimanche 14 octobre 2018 à "
+                        + "minuit ");
             }
         });
 
@@ -258,7 +261,9 @@ public class Fenetre extends JFrame implements Observer {
                 texte = "Le joueur " + modele.saCouleur() + " a gagné.";
 
             }
-            int confirm = JOptionPane.showConfirmDialog(this, texte + "Voulez vous recommencer à jouer?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int confirm = JOptionPane.showConfirmDialog(this, texte + "Voulez "
+                    + "vous recommencer à jouer?", "Confirmation", JOptionPane.
+                            YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
 
                 reset();
@@ -275,7 +280,9 @@ public class Fenetre extends JFrame implements Observer {
      * Méthode qui valide si le joueur veut réellement quitter le jeu
      */
     public void confirmerQuitter() {
-        int confirm = JOptionPane.showOptionDialog(null, "Voulez vous fermer l’application?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+        int confirm = JOptionPane.showOptionDialog(null, "Voulez vous fermer "
+                + "l’application?", "Confirmation", JOptionPane.YES_NO_OPTION, 
+                JOptionPane.QUESTION_MESSAGE, null, null, null);
 
         if (confirm == JOptionPane.YES_OPTION) {
             System.exit(0);

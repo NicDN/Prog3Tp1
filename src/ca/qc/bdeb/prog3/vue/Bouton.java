@@ -21,7 +21,8 @@ public class Bouton extends JButton implements Observer {
     private int positionX, positionY;
     private Quad quad;
 
-    public Bouton(String texte, int positionX, int positionY, int positionDansQuad, Modele modele) {
+    public Bouton(String texte, int positionX, int positionY, int 
+            positionDansQuad, Modele modele) {
 
         super(texte);
         this.positionX = positionX;
@@ -44,7 +45,8 @@ public class Bouton extends JButton implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
-        int numeroJoueur = modele.getTabBoutonModele()[positionX][positionY][positionDansQuad];
+        int numeroJoueur = modele.getTabBoutonModele()[positionX][positionY]
+                [positionDansQuad];
 
         if (numeroJoueur == 1) {
             this.setBackground(modele.getJoueur1().getCouleur());
