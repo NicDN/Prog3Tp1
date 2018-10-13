@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.qc.bdeb.prog3.vue;
 
 import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.BorderLayout;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -16,9 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.font.TextAttribute;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -33,8 +25,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
+ * Classe Fenetre
  *
  * @author Nicolas
+ * @version 1,0
  */
 public class Fenetre extends JFrame implements Observer {
 
@@ -63,7 +57,7 @@ public class Fenetre extends JFrame implements Observer {
     private JMenuItem mnuQuitter;
     private JMenuItem mnuAPropos;
 
-    Modele modele;
+    private Modele modele;
     private Quad quad;
 
     private Timer tmr = new Timer(1000, new ActionListener() {
@@ -80,7 +74,7 @@ public class Fenetre extends JFrame implements Observer {
         this.modele = modele;
         modele.addObserver(this);
 
-        déclarerComposantes();
+        initialiserComposantes();
 
         setTitle("Hijara");
         setSize(570, 850);
@@ -99,6 +93,11 @@ public class Fenetre extends JFrame implements Observer {
 
     }
 
+    /**
+     * Méthode qui crée l'interface graphique du jeu
+     *
+     * @see creerMenu();
+     */
     public void creer() {
         tmr.start();
         creerMenu();
@@ -116,7 +115,10 @@ public class Fenetre extends JFrame implements Observer {
         this.add(pnlPrincipal1, BorderLayout.CENTER);
     }
 
-    private void déclarerComposantes() {
+    /**
+     * Méthode qui inilisalise les composantes et les mets en mémoire
+     */
+    private void initialiserComposantes() {
 
         pnlPrincipal1 = new JPanel(new BorderLayout());
         pnlPrincipal2 = new JPanel(new BorderLayout());
@@ -141,6 +143,9 @@ public class Fenetre extends JFrame implements Observer {
 
     }
 
+    /**
+     * Méthode qui crée le menu du jeu
+     */
     public void creerMenu() {
         mnuFichier.add(mnuNouvellePartie);
         mnuFichier.add(mnuOptions);
@@ -156,6 +161,9 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal2.add(mnuBar, BorderLayout.NORTH);
     }
 
+    /**
+     * Méthode qui réactive toute les 1ere case et désactive les autres
+     */
     private void reset() {
 
         for (int i = 0; i < listeQuad.size(); i++) {
@@ -175,6 +183,9 @@ public class Fenetre extends JFrame implements Observer {
         modele.resetPartie();
     }
 
+    /**
+     * Évènements sur les options du menu
+     */
     public void creerEventsMenu() {
 
         mnuNouvellePartie.addActionListener(new ActionListener() {
@@ -213,6 +224,9 @@ public class Fenetre extends JFrame implements Observer {
 
     }
 
+    /**
+     * Méthode qui crée les 16 quads du jeu
+     */
     private void creerTableJeu() {
 
         for (int i = 0; i < 4; i++) {
@@ -257,6 +271,9 @@ public class Fenetre extends JFrame implements Observer {
 
     }
 
+    /**
+     * Méthode qui valide si le joueur veut réellement quitter le jeu
+     */
     public void confirmerQuitter() {
         int confirm = JOptionPane.showOptionDialog(null, "Voulez vous fermer l’application?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 

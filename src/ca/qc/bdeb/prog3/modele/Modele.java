@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.qc.bdeb.prog3.modele;
 
 import java.awt.Color;
@@ -10,11 +5,12 @@ import java.awt.Color;
 import java.util.Observable;
 
 /**
+ * Classe de gestion de la logistique du jeu
  *
- * @author Nicolas
+ * @author Nicolas Demers-Neuwirth
+ * @version 1,0
  */
 public class Modele extends Observable {
-
 
     private boolean isDone = false;
     private int tabBoutonModele[][][] = new int[4][4][4];
@@ -40,6 +36,11 @@ public class Modele extends Observable {
         notifyObservers();
     }
 
+    /**
+     * Méthode que remet le tableau d'entier en trois dimensions à son état
+     * initial, soit à 0 dans chaque case. La méthode réinitialise le compteur
+     * de coup, les points et le timer à 0
+     */
     public void resetPartie() {
 
         cpt = 0;
@@ -64,6 +65,12 @@ public class Modele extends Observable {
 
     }
 
+    /**
+     * Méthode qui calcule le total des points des 3 options
+     *
+     * @param joueur qui représente le joueur actif qu'il faut calculer ses
+     * points
+     */
     public void calculerPoints(Joueur joueur) {
         double point10 = 0;
         double points15 = 0;
@@ -83,6 +90,9 @@ public class Modele extends Observable {
         //majObserver();
     }
 
+    /**
+     * Méthode qui chronomètre en augmentant les minutes et les secondes
+     */
     public void chronometrer() {
         seconde++;
         if (seconde > 59) {
@@ -92,6 +102,13 @@ public class Modele extends Observable {
         majObserver();
     }
 
+    /**
+     * Méthode qui change la couleur du joueur vérifie si elle n'est pas prise
+     *
+     * @param couleur couleur sélectionnée par le joueur actif
+     * @return (true) si la couleur est déjà prise (false) si la couleur n'est
+     * pas prise
+     */
     public boolean changerCouleur(Color couleur) {
 
         saCouleur = joueurActif.getCouleur();
@@ -104,12 +121,22 @@ public class Modele extends Observable {
 
             erreur = true;
             joueurActif.setCouleur(saCouleur);
-           
+
         }
-         majObserver();
+        majObserver();
 
         return erreur;
     }
+
+    /**
+     * Méthode qui calcul les points le l'option à 10 points. (4 pierres de même
+     * couleur sur 4 numéros identiques et consécutifs - horizontalement,
+     * verticalement ou en diagonale)
+     *
+     * @param joueur qui représente le joueur actif qu'il faut calculer les
+     * points
+     * @return le nombre de points marqué par le joueur
+     */
 
     private double calculerPoints10(Joueur joueur) {
 
@@ -154,6 +181,15 @@ public class Modele extends Observable {
 
     }
 
+    /**
+     * Méthode qui calcul les points le l'option à 15 points. (4 pierres de même
+     * couleur en ordre numérique horizontalement, verticalement ou en
+     * diagonale)
+     *
+     * @param joueur qui représente le joueur actif qu'il faut calculer les
+     * points
+     * @return le nombre de points marqué par le joueur
+     */
     private double calculerPoints15(Joueur joueur) {
         int k = 0;
         double points = 0;
@@ -191,6 +227,15 @@ public class Modele extends Observable {
 
     }
 
+    /**
+     * Méthode qui calcul les points le l'option à 20 points. (4 pierres de même
+     * couleur sur un même carré.)
+     *
+     * @param joueur qui représente le joueur actif qu'il faut calculer les
+     * points
+     * @return le nombre de points marqué par le joueur
+     */
+
     private int calculerPoints20(Joueur joueur) {
         int points = 0;
         for (int i = 0; i < 4; i++) {
@@ -206,7 +251,15 @@ public class Modele extends Observable {
         return points;
     }
 
-    public void placerMarqueur(int positionX, int positionY, int positionDansQuad, int positionBtnListe) {
+    /**
+     * Méthode qui octroie une case cliqué par le joueur actif dans le tableau
+     * de int en 3 dimensions
+     *
+     * @param positionX position horizontale du quad
+     * @param positionY position verticale du quad
+     * @param positionDansQuad position de la case cliqué dans le quad
+     */
+    public void placerMarqueur(int positionX, int positionY, int positionDansQuad) {
 
         tabBoutonModele[positionX][positionY][positionDansQuad] = joueurActif.getNumeroJoueur();
 
@@ -228,28 +281,9 @@ public class Modele extends Observable {
         majObserver();
     }
 
-    public int getMinute() {
-        return minute;
-    }
-
-    public int getSeconde() {
-
-        return seconde;
-    }
-
-    public Joueur getJoueur1() {
-        return joueur1;
-    }
-
-    public Joueur getJoueur2() {
-        return joueur2;
-    }
-
-    public int[][][] getTabBoutonModele() {
-        return tabBoutonModele;
-    }
-
     /**
+     * Méthode qui vérifie si'il y a un gagnant et transforme sa couleur en
+     * String
      *
      * @return null si aucun gagnant, string s'il y a un gagnant
      */
@@ -286,6 +320,41 @@ public class Modele extends Observable {
         return saCouleur;
     }
 
+    /**
+     * Méthode qui vérifier lequel des deux joueur est le joueur actif
+     *
+     * @return (true) si le joueur actif est le joueur1 (false) si c'est le
+     * joueur2
+     */
+    public boolean vérifierJoueurAcif() {
+        boolean bool = false;
+        if (joueurActif == joueur1) {
+            bool = true;
+        }
+        return bool;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public int getSeconde() {
+
+        return seconde;
+    }
+
+    public Joueur getJoueur1() {
+        return joueur1;
+    }
+
+    public Joueur getJoueur2() {
+        return joueur2;
+    }
+
+    public int[][][] getTabBoutonModele() {
+        return tabBoutonModele;
+    }
+
     public boolean isIsDone() {
         return isDone;
     }
@@ -319,14 +388,6 @@ public class Modele extends Observable {
             textTemps = minute + ":" + seconde;
         }
         return textTemps;
-    }
-
-    public boolean vérifierJoueurAcif() {
-        boolean bool = false;
-        if (joueurActif == joueur1) {
-            bool = true;
-        }
-        return bool;
     }
 
 }

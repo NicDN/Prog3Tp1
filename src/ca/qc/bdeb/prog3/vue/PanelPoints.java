@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.qc.bdeb.prog3.vue;
 
 import ca.qc.bdeb.prog3.modele.Joueur;
@@ -10,7 +5,6 @@ import ca.qc.bdeb.prog3.modele.Modele;
 import java.awt.Color;
 import java.awt.Font;
 
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -19,12 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
+ * Classe du panneau qui affiche les points
  *
- * @author 1743379
+ * @author Nicolas Demers-Neuwirth
+ * @version 1,0
  */
 public class PanelPoints extends JPanel implements Observer {
 
-    Modele modele;
+    private Modele modele;
     private Joueur joueur;
 
     private ArrayList<JLabel> listePoints = new ArrayList<JLabel>();
@@ -46,7 +42,7 @@ public class PanelPoints extends JPanel implements Observer {
         boolean bool = modele.vérifierJoueurAcif();
         String couleur1 = vérifierCouleur(modele.getJoueur1());
         String couleur2 = vérifierCouleur(modele.getJoueur2());
-       
+
         if (bool) {
 
             if (lblCouleur.getText() == couleur1) {
@@ -78,6 +74,11 @@ public class PanelPoints extends JPanel implements Observer {
 
     }
 
+    /**
+     * Méthode qui crée le panneau dépendamment du joueur
+     *
+     * @param joueur le joueur1 ou le joueur2
+     */
     private void creerPanneau(Joueur joueur) {
         this.setLayout(new GridLayout(0, 15));
 
@@ -97,6 +98,11 @@ public class PanelPoints extends JPanel implements Observer {
         this.add(lblPts);
     }
 
+    /**
+     *
+     * @param joueur joueur qu'il faut transformer sa couleur en String
+     * @return la couleur en String du joueur
+     */
     private String vérifierCouleur(Joueur joueur) {
 
         String couleur = null;

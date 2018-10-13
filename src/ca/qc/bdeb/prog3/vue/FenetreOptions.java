@@ -1,6 +1,3 @@
-/**
- * @author Nicolas Demers-Neuwirth
- */
 package ca.qc.bdeb.prog3.vue;
 
 import ca.qc.bdeb.prog3.modele.Modele;
@@ -17,6 +14,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
+/**
+ * Classe de la Fenetre pour permet de changer la couleur d'un joueur
+ *
+ * @author Nicolas Demers-Neuwirth
+ * @version 1,0
+ */
 public class FenetreOptions extends JFrame implements Observer {
 
     private JRadioButton optRouge;
@@ -27,7 +30,7 @@ public class FenetreOptions extends JFrame implements Observer {
     private Modele modele;
     private Color couleur = null;
     private boolean erreur = false;
-    Timer tmr;
+    private Timer tmr;
 
     public FenetreOptions(Modele modele) throws HeadlessException {
         this.modele = modele;
@@ -36,7 +39,7 @@ public class FenetreOptions extends JFrame implements Observer {
         setTitle("Sélectionnez une couleur:");
         setSize(300, 100);
         setLayout(new FlowLayout());
-        déclarerComposantes();
+        initialiserComposantes();
 
         creer();
         creerEvents();
@@ -44,6 +47,9 @@ public class FenetreOptions extends JFrame implements Observer {
         setVisible(true);
     }
 
+    /**
+     * Méthode qui créer l'interface de la fenetre
+     */
     private void creer() {
         groupeBoutons.add(optRouge);
         groupeBoutons.add(optBleu);
@@ -56,6 +62,9 @@ public class FenetreOptions extends JFrame implements Observer {
         this.add(optJaune);
     }
 
+    /**
+     * Méthode d'évènements sur les boutons radio de la fenètre
+     */
     private void creerEvents() {
         optRouge.addItemListener(new ItemListener() {
             @Override
@@ -90,7 +99,10 @@ public class FenetreOptions extends JFrame implements Observer {
 
     }
 
-    private void déclarerComposantes() {
+    /**
+     * Méthode qui initlialise les composantes et les mets en mémoroire
+     */
+    private void initialiserComposantes() {
         optRouge = new JRadioButton("Rouge", false);
         optBleu = new JRadioButton("Bleu", false);
         optVert = new JRadioButton("Vert", false);

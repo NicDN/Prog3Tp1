@@ -2,14 +2,11 @@
 import ca.qc.bdeb.prog3.modele.Modele;
 import ca.qc.bdeb.prog3.vue.Fenetre;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
+ * Classe main
  *
- * @author Nicolas
+ * @author Nicolas Demers-Neuwirth
+ * @version 1,0
  */
 public class Main {
 
@@ -20,7 +17,6 @@ public class Main {
 
         Modele modele = new Modele();
         Fenetre fenetre = new Fenetre(modele);
-
 
     }
 

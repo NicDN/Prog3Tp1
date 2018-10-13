@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca.qc.bdeb.prog3.vue;
 
 import ca.qc.bdeb.prog3.modele.Modele;
@@ -12,17 +7,19 @@ import java.util.Observer;
 import javax.swing.JButton;
 
 /**
+ * Classe d'un Bouton
  *
- * @author 1743379
+ * @author Nicolas Demers-Neuwirth
+ * @version 1,0
  */
 public class Bouton extends JButton implements Observer {
 
-    Modele modele;
+    private Modele modele;
 
     private int positionDansQuad;
     private Color couleur;
     private int positionX, positionY;
-    Quad quad;
+    private Quad quad;
 
     public Bouton(String texte, int positionX, int positionY, int positionDansQuad, Modele modele) {
 
