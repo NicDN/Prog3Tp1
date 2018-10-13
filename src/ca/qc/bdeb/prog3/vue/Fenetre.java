@@ -37,7 +37,7 @@ public class Fenetre extends JFrame implements Observer {
 
     private JComboBox cboBoite;
 
-    private JFrame fenetre2;
+
 
     private JPanel pnlPrincipal1;
     private JPanel pnlJeu;
