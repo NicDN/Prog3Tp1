@@ -15,7 +15,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-
+import javax.swing.Timer;
 
 public class FenetreOptions extends JFrame implements Observer {
 
@@ -27,7 +27,7 @@ public class FenetreOptions extends JFrame implements Observer {
     private Modele modele;
     private Color couleur = null;
     private boolean erreur = false;
-  
+    Timer tmr;
 
     public FenetreOptions(Modele modele) throws HeadlessException {
         this.modele = modele;
@@ -61,7 +61,7 @@ public class FenetreOptions extends JFrame implements Observer {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 couleur = Color.RED;
-                erreur=modele.changerCouleur(couleur);
+                erreur = modele.changerCouleur(couleur);
             }
         });
 
@@ -69,7 +69,7 @@ public class FenetreOptions extends JFrame implements Observer {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 couleur = Color.GREEN;
-                erreur=modele.changerCouleur(couleur);
+                erreur = modele.changerCouleur(couleur);
             }
         });
 
@@ -77,14 +77,14 @@ public class FenetreOptions extends JFrame implements Observer {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 couleur = Color.YELLOW;
-                erreur=modele.changerCouleur(couleur);
+                erreur = modele.changerCouleur(couleur);
             }
         });
         optBleu.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 couleur = Color.BLUE;
-                erreur=modele.changerCouleur(couleur);
+                erreur = modele.changerCouleur(couleur);
             }
         });
 
@@ -102,11 +102,14 @@ public class FenetreOptions extends JFrame implements Observer {
     public void update(Observable o, Object arg) {
 
         if (erreur) {
-            JOptionPane.showMessageDialog(FenetreOptions.this, "Vous ne pouvez pas choisir la même couleur que l'autre joueur", "Erreur", JOptionPane.ERROR_MESSAGE);
-            erreur=false;
+
+            erreur = false;
+
+            JOptionPane.showMessageDialog(FenetreOptions.this, "Vous ne pouvez "
+                    + "pas choisir la même couleur que l'autre joueur", "Erreur",
+                    JOptionPane.OK_OPTION);
+
         }
     }
 
-    
-    
 }

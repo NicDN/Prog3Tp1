@@ -100,7 +100,7 @@ public class Fenetre extends JFrame implements Observer {
     }
 
     public void creer() {
-        démarrerTimer();
+        tmr.start();
         creerMenu();
 
         pnlPrincipal2.add(lblTitre, BorderLayout.SOUTH);
@@ -234,6 +234,7 @@ public class Fenetre extends JFrame implements Observer {
         lblTimer.setText("" + modele.getTexteTemps());
 
         if (modele.isIsDone()) {
+            tmr.stop();
             String texte = null;
             if (modele.saCouleur() == null) {
                 texte = "Partie nulle";
@@ -246,11 +247,12 @@ public class Fenetre extends JFrame implements Observer {
             int confirm = JOptionPane.showConfirmDialog(this, texte + "Voulez vous recommencer à jouer?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.YES_OPTION) {
 
-               reset();
+                reset();
+                tmr.start();
             } else {
                 System.exit(0);
             }
-            //modele.setIsDone(false);
+
         }
 
     }
@@ -261,10 +263,6 @@ public class Fenetre extends JFrame implements Observer {
         if (confirm == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
-    }
-
-    public void démarrerTimer() {
-        tmr.start();
     }
 
     public Timer getTimer() {
