@@ -72,8 +72,7 @@ public class Quad extends JPanel implements Observer {
 
                     modele.placerMarqueur(positionX, positionY, btnClique.
                             getPositionDansQuad());
-                    System.out.println("x,y,z:" + positionX + "/" + positionY + 
-                            "/" + btnClique.getPositionDansQuad());
+                   
 
                     try {
                         listeBouton.get(positionBtnListe + 1).setEnabled(true);

@@ -117,7 +117,7 @@ public class Modele extends Observable {
         boolean erreur = false;
 
         if (joueur1.getCouleur() == joueur2.getCouleur()) {
-//            System.out.println(joueur1.getCouleur()+"  "+ joueur2.getCouleur());
+
 
             erreur = true;
             joueurActif.setCouleur(saCouleur);
